@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html>
+   <!--
+  year:    2022 
+  Languages: Javascript, HTML, CSS
+  Function   : getAccountDetailsInformation, deactivateAccount, activateAccount, deleteAccount.
+  
+  Description:  User can use this page to get 
+                account details, Deactivate, Activate, Delete Account.
+
+ Helios by HTML5 UP
+ html5up.net | @ajlkn
+ Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+
+<head>
+  <meta charset="utf-8" />
+  <title>Manage DEI Accounts</title>
+  <meta charset="utf-8" />
+  <title>Supplier Warranty360.Products</title>
+  <!--Link the required stylesheets to manageDEIAccounts-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="https://storage.cloud.google.com/integrity360/assets/css/main.css" />
+</head>
+
+<body>
+  <div id="page-wrapper">
+    <div id="header">
+
+      <!-- Nav -->
+      <nav id="nav">
+        <ul>
+          <!--List the pages -->
+          <li><a href="index.html">Home</a></li>
+          <li>
+            <a href="ManageAgency.html">Government Agencies</a>
+            <ul>
+              <li><a href="ManageAgency.html">Manage DEI Agencies</a></li>
+              <li><a href="ManageDEIAccounts.html">Manage Diversity Klaytn Accounts</a></li>
+              <li><a href="DEIComplianceDashboard.html">DEI Compliance Dashboards</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="ManageCompany.html">Companies</a>
+            <ul>
+              <li><a href="ManageCompany.html">Manage Companies</a></li>
+              <li><a href="RegisterSupplier.html">Add Supplier Information as Klaytn Transaction</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="DEIComplianceDashboard.html">Compliance Auditors</a>
+            <ul>
+              <li><a href="DEIComplianceDashboard.html">DEI Metrics from Klaytn Transactions</a></li>
+							  <li><a href="DeviationApproval.html">Raise a Multi-Seg Deviation Transaction</a></li>
+            </ul>
+          </li>
+         
+          <li><a href="About.html">About</a></li>
+        </ul>
+      </nav>
+  
+    </div>
+  </div>
+  <div class="container">
+    <div style="margin-top: 30px;">
+      <!--Intro to DEI accounts-->
+      <ol style="background-color:antiquewhite; font-size: larger;color: black;">
+        <li>An organization can maintain <u><b><i>single or multiple DEI Accounts</u></b></i> with the Government</li>
+        <li>These accounts are centrally monitored on <u><b><i>Klaytn Blockchain</u></b></i> to ensure transparency and compliance </li>
+      </ol>
+    </div>
+    <!-- <button class="btn btn-primary my-3" onclick="sendPaymentBtn()">Transact</button> -->
+    <!-- <button class="btn btn-primary my-3" onclick="createAccountBtn()">Create Account</button>
+    <button class="btn btn-primary my-3" onclick="accountDetailsBtn()">List of Account</button>
+    <button class="btn btn-primary my-3" onclick="GetAccountInformation()">Account Information</button>
+    <button class="btn btn-primary my-3" onclick="DeleteAccount()">Delete Account</button>
+    <button class="btn btn-primary my-3" onclick="ActivateAccount()">Activate Account</button>
+    <button class="btn btn-primary my-3" onclick="DeactivateAccount()">Deactivate Account</button>
+     -->
+    
+    <!--Create forms to search, pay, create, delete, activate, deactivate accounts-->
+    <form id="searchForm" style="display: none;"></form>
+    <form id="paymentForm" style="display: none;"></form>
+    <form id="createAccountForm" style="display: none;"></form>
+    <form id="GetAccountInformationForm" style="display: none;"></form>
+    <form id="DeleteAccountForm" style="display: none;"></form>
+    <form id="ActivateAccountForm" style="display: none;"></form>
+    <form id="DeactivateAccountForm" style="display: none;"></form>
+
+    <form id="qrCode" style="display: none;"></form>
+
+    <div id="feedbackGrid" class="mt-3"></div>
+    <div id="Grid"></div>
+
+    <!-- Button trigger modal -->
+    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Launch demo modal
+    </button> -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+      style="margin-top : 50px; width: 1700px;">
+      <div class="modal-dialog">
+        <div class="modal-content" style="width: 800px;">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <pre id="myText" style="display: none;"></pre>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br></br>
+  <footer id="footer">
+    <div class="row">
+      <div class="col-12" align="center">
+
+        <!-- Contact Information-->
+          <section class="contact">
+            <header>
+              <header>
+                <b>Looking for Deploying Integrity360 to your Organization/Government</b>
+                <br><i>Integrity360 is a zero deployment package just requiring a cloud web space and Klaytn Account.</i>
+              </header>
+            
+          </section>
+
+        <!-- Copyright Information-->
+          <div class="copyright">
+            <ul class="menu">
+              <li>&copy; Integrity360. All rights reserved.</li>
+            </ul>
+          </div>
+
+      </div>
+
+    </div>
+  </footer>
+
+  <div id="res" class="alert"></div>
+  <!--Link the required script files to manageDEIaccounts-->
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/jquery.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/jquery.dropotron.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/jquery.scrollex.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/browser.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/breakpoints.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/util.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/main.js"></script>
+  <script type="text/javascript" src="https://storage.googleapis.com/chart-api-db/CDN/deps/underscore.js"></script>
+  <script type="text/javascript" src="https://storage.googleapis.com/chart-api-db/CDN/deps/opt/jsv.js"></script>
+  <script type="text/javascript" src="https://storage.googleapis.com/chart-api-db/CDN/lib/jsonform.js"></script>
+  <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js" type="text/javascript"></script>
+  <link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuidv4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+
+  <script type="text/javascript">
+
+    // var onDeleteIconClick = (args) => {
+    //         var rowIndex = ej.base.closest(args.target, '.e-row').rowIndex;
+    //         var treeGridObj = document.getElementById("Grid").ej2_instances[0];
+    //         var data = treeGridObj.getCurrentViewRecords();
+    //         var rowData = data[rowIndex];
+    //         debugger
+    //         deleteFiles(rowData.address)
+    //     }    
+
+    var AccountNames = [ 'Ethinicty Account', 'Diversity Account', 'Inclusitivity Account'];
+
+//Append headers with the x-chain-id and authorization
+var myHeaders = new Headers();
+myHeaders.append("x-chain-id", "1001");
+myHeaders.append("Authorization", "Basic S0FTSzhISUpGV0hISjk1VUtKR0FLSzMxOmtJRm5TUk9abnJub0NTVXRrQWNGUWtCbEQ0bXUwYlBZNUl3Qkt3WmU=");
+//Create RequestOptions
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+//Create syncfusion grid using the values from the API request
+
+ var url = "https://wallet-api.klaytnapi.com/v2/account?&size=100&cursor=&from-timestamp=1592360291&to-timestamp=15991809920";
+ fetch(url, requestOptions)
+   .then(response => response.text())
+   .then(data => {
+     var gridData = JSON.parse(data);
+     gridData = gridData["items"];
+      for(let i=0;i<gridData.length;i++){
+       gridData[i]['Name'] = AccountNames[i];
+      }
+console.log(gridData);
+// console.log(typeof(gridData));
+    var grid = new ej.grids.Grid({
+      dataSource: gridData,
+      childMapping: 'subtasks',
+      // // editSettings: { allowEditing: true, allowAdding: true, allowDeleting: true, mode: 'Row', showDeleteConfirmDialog: true },
+      // allowPaging: true,
+      // height: 300,
+      // allowSelection: true,
+      // allowFiltering: true,
+      // allowSorting: true,
+      // filterSettings: { type: 'Excel' },
+      // toolbar: ['Search'],
+      // pageSettings: { pageCount: 4, pageSizes: true },
+      allowSelection: true,
+      allowFiltering: true,
+      allowSorting: true,
+      allowTextWrap: true,
+      allowPaging: true,
+      enableVirtualization: true,
+      toolbar: ['Search'],
+      filterSettings: { type: 'Menu' },
+      selectionSettings: { persistSelection: true, type: "Multiple", checkboxOnly: true },
+      enableHover: false,
+      enableHeaderFocus: true,
+      pageSettings: { pageCount: 4, pageSizes: true },
+      height: 300,
+      rowHeight: 38,
+      columns: [
+        { field: 'Name', headerText: 'Account Name', width: 200},
+        { field: 'address', headerText: 'Address', width: 500, isPrimaryKey: 'True' },
+      // { field: 'createdAt', headerText: 'Created At', width: 200, isPrimaryKey: 'True' },
+            
+            // { field: 'chainId', headerText: 'ChainID', width: 150 },
+            // { field: 'keyId', headerText: 'KeyID', width: 1000 },
+            // { field: 'publicKey', headerText: 'PublicKey', width: 1000 },
+            // { field: 'name', headerText: 'FileName' },
+            {
+              headerText: 'Action', width: 160,
+              commands: [{ type: 'AccountInfo', buttonOption: { iconCss: ' e-icons e-eye', cssClass: 'e-flat' } },
+              { type: 'Deactivate', buttonOption: { iconCss: ' e-icons e-warning', cssClass: 'e-flat' } },
+              { type: 'Activate', buttonOption: { iconCss: ' e-icons e-play', cssClass: 'e-flat' } },
+              { type: 'Delete', buttonOption: { iconCss: 'e-icons e-delete', cssClass: 'e-flat' } }
+                //{ buttonOption: { content: 'Delete', cssClass: 'e-flat' }, click: onClick}
+              ]
+            }
+          ],
+          commandClick: (args) => {
+            debugger
+
+            //handleUpdateFeedback();
+
+            var Address = `${args.rowData.address}`;
+
+            // localStorage.setItem("product_id", id);
+            // localStorage.setItem("product", product);
+            // localStorage.setItem("manufacturer", manufacturer);
+            // localStorage.setItem("supplierID", supplierID);
+            // localStorage.setItem("description", description);
+            // localStorage.setItem("outOfWarrantyServiceCost", outOfWarrantyServiceCost);
+
+            //Activate account
+            if (args.commandColumn.type == "Activate") {
+              confirm("Do You Want To Activate This Wallet " + Address + " ?");
+              var record = {};
+              record.AccountAddress = Address;
+              
+              //Append headers with the x-chain-id and authorization
+              var myHeaders = new Headers();
+              myHeaders.append("x-chain-id", "1001");
+              myHeaders.append("Authorization", "Basic S0FTSzhISUpGV0hISjk1VUtKR0FLSzMxOmtJRm5TUk9abnJub0NTVXRrQWNGUWtCbEQ0bXUwYlBZNUl3Qkt3WmU=");
+
+              //create requestOptions
+              var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                redirect: 'follow'
+              };
+
+              //Call the api
+              fetch("https://wallet-api.klaytnapi.com/v2/account/" + record.AccountAddress + "/enable", requestOptions)
+                .then(response => response.text())
+                .then(data => { //alert(JSON.stringify(data))
+                  document.getElementById("myText").innerHTML = "";
+                  // alert(JSON.stringify(data));
+                  data = JSON.parse(data);
+
+                  //Parse the data by looping through the list of values
+                  for (var key in data) {
+                    //if (data.hasOwnProperty(key)) {
+                    debugger
+                    if (typeof (data[key]) == "object") {
+                      document.getElementById("myText").innerHTML += "\n";
+                      document.getElementById("myText").innerHTML += key.toUpperCase() + "\n";
+                      for (var key1 in data[key]) {
+                        if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                          document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                        }
+                      }
+                      document.getElementById("myText").innerHTML += "\n";
+                    }
+                    else if (data[key] != "" && data[key] != null) {
+                      document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+                    }
+                    $('#exampleModal').modal('show');
+                    $('#myText').show();
+
+                  }
+                })
+            }
+            // Deactivate account
+            else if (args.commandColumn.type == "Deactivate") {
+              confirm("Do You Want To Deactivate This Wallet " + Address + " ?");
+              //Assign address to record.AccountAddress
+              var record = {};
+              record.AccountAddress = Address;
+              //Append headers with the x-chain-id and authorization
+              var myHeaders = new Headers();
+              myHeaders.append("x-chain-id", "1001");
+              myHeaders.append("Authorization", "Basic S0FTSzhISUpGV0hISjk1VUtKR0FLSzMxOmtJRm5TUk9abnJub0NTVXRrQWNGUWtCbEQ0bXUwYlBZNUl3Qkt3WmU=");
+               //Create RequestOptions
+              var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                redirect: 'follow'
+              };
+              //Create syncfusion grid with the values from the API request
+              fetch("https://wallet-api.klaytnapi.com/v2/account/" + record.AccountAddress + "/disable", requestOptions)
+                .then(response => response.text())
+                .then(data => { //alert(JSON.stringify(data)) 
+                  document.getElementById("myText").innerHTML = "";
+                  // alert(JSON.stringify(data));
+                  data = JSON.parse(data);
+
+                  //Parse the data in the required format by looping through the list of values
+                  for (var key in data) {
+                    //if (data.hasOwnProperty(key)) {
+                    debugger
+                    if (typeof (data[key]) == "object") {
+                      document.getElementById("myText").innerHTML += "\n";
+                      document.getElementById("myText").innerHTML += key.toUpperCase() + "\n";
+                      for (var key1 in data[key]) {
+                        if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                          document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                        }
+                      }
+                      document.getElementById("myText").innerHTML += "\n";
+                    }
+                    else if (data[key] != "" && data[key] != null) {
+                      document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+                    }
+                    $('#exampleModal').modal('show');
+                    $('#myText').show();
+
+                  }
+                })
+            }
+            //Get account details
+            else if (args.commandColumn.type == "AccountInfo") {
+              // confirm("Do You Want To Deactivate This Wallet " + Address + " ?");
+              var record = {};
+              record.AccountAddress = Address;
+
+              //Append headers with the x-chain-id and authorization
+              var myHeaders = new Headers();
+              myHeaders.append("x-chain-id", "1001");
+              myHeaders.append("Authorization", "Basic S0FTSzhISUpGV0hISjk1VUtKR0FLSzMxOmtJRm5TUk9abnJub0NTVXRrQWNGUWtCbEQ0bXUwYlBZNUl3Qkt3WmU=");
+              
+              //Create RequestOptions 
+              var requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                redirect: 'follow'
+              };
+              //Create syncfusion grid with the values from the API request
+              fetch("https://wallet-api.klaytnapi.com/v2/account/" + record.AccountAddress, requestOptions)
+                .then(response => response.text())
+                .then(data => {
+                  document.getElementById("myText").innerHTML = "";
+                  // alert(JSON.stringify(data));
+                  data = JSON.parse(data);
+
+                  //Parse the data in the required format by looping through the list of values
+                  for (var key in data) {
+                    //if (data.hasOwnProperty(key)) {
+                    debugger
+                    if (typeof (data[key]) == "object") {
+                      document.getElementById("myText").innerHTML += "\n";
+                      document.getElementById("myText").innerHTML += key.toUpperCase() + "\n";
+                      for (var key1 in data[key]) {
+                        if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                          document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                        }
+                      }
+                      document.getElementById("myText").innerHTML += "\n";
+                    }
+                    else if (data[key] != "" && data[key] != null) {
+                      document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+                    }
+                    $('#exampleModal').modal('show');
+                    $('#myText').show();
+
+                  }
+                })
+
+
+            }
+            else {
+              //Delete account
+              confirm("Do You Want To Delete This Wallet " + Address + " ?");
+              var record = {};
+              record.AccountAddress = Address;
+              
+              //Append headers with the x-chain-id and authorization
+              var myHeaders = new Headers();
+              myHeaders.append("x-chain-id", "1001");
+              myHeaders.append("Authorization", "Basic S0FTSzhISUpGV0hISjk1VUtKR0FLSzMxOmtJRm5TUk9abnJub0NTVXRrQWNGUWtCbEQ0bXUwYlBZNUl3Qkt3WmU=");
+
+              //Create RequestOptions 
+              var requestOptions = {
+                method: 'DELETE',
+                headers: myHeaders,
+                redirect: 'follow'
+              };
+              debugger
+              console.log(record.AccountAddress);
+
+              //Create syncfusion grid with the values from the API request
+              fetch("https://wallet-api.klaytnapi.com/v2/account/" + record.AccountAddress, requestOptions)
+                .then(response => response.text())
+                .then(data => { alert(JSON.stringify(data)) })
+
+              //Append headers with the x-chain-id and authorization
+              var myHeaders = new Headers();
+              myHeaders.append("x-chain-id", "1001");
+              myHeaders.append("Authorization", "Basic S0FTSzhISUpGV0hISjk1VUtKR0FLSzMxOmtJRm5TUk9abnJub0NTVXRrQWNGUWtCbEQ0bXUwYlBZNUl3Qkt3WmU=");
+
+              //Create RequestOptions
+              var requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                redirect: 'follow'
+              };
+              var url = "https://wallet-api.klaytnapi.com/v2/account?&size=100&cursor=&from-timestamp=1592360291&to-timestamp=15991809920";
+              
+              //Create syncfusion grid with the values from the API request
+              fetch(url, requestOptions)
+                .then(response => response.text())
+                .then(data => {
+                  // var gridData = JSON.parse(data);
+                  // gridData = gridData["items"];
+                  // grid.dataSource = gridData;
+                  document.getElementById("myText").innerHTML = "";
+                  // alert(JSON.stringify(data));
+                  data = JSON.parse(data);
+
+                  //Parse the data in the required format by looping through the list of values
+                  for (var key in data) {
+                    //if (data.hasOwnProperty(key)) {
+                    debugger
+                    if (typeof (data[key]) == "object") {
+                      document.getElementById("myText").innerHTML += "\n";
+                      document.getElementById("myText").innerHTML += key.toUpperCase() + "\n";
+                      for (var key1 in data[key]) {
+                        if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                          document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                        }
+                      }
+                      document.getElementById("myText").innerHTML += "\n";
+                    }
+                    else if (data[key] != "" && data[key] != null) {
+                      document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+                    }
+                    $('#exampleModal').modal('show');
+                    $('#myText').show();
+
+                  }
+                  debugger
+                })
+
+            }
+          }
+        });
+        grid.appendTo('#Grid');
+      })
+      .catch(error => console.log('error', error));
+    // var gridData = groupFiles(filesInfo);
+    // var gridData = accountDetails();
+    // debugger
+    // console.log(gridData);
+    // debugger
+    // //var gridData = data;
+    // var grid = new ej.treegrid.TreeGrid({
+    //     dataSource: gridData,
+    //     allowPaging: true,
+    //     height: 300,
+    //     allowFiltering: true,
+    //     allowSorting: true,
+    //     filterSettings: { type: 'Excel' },
+    //     toolbar: ['Search'],
+    //     pageSettings: { pageCount: 4, pageSizes: true },
+    //     columns: [
+    //         { field: 'id', headerText: 'S.No', width: 200 },
+    //         { field: 'name', headerText: 'FileName' },
+    //         {
+    //             headerText: 'Action', width: 160,
+    //             commands: [{ type: 'Edit', buttonOption: { iconCss: ' e-icons e-eye', cssClass: 'e-flat' } },
+    //             { type: 'Delete', buttonOption: { iconCss: 'e-icons e-delete', cssClass: 'e-flat' } }]
+    //         }
+    //     ],
+    //     commandClick: (args) => {
+    //         debugger
+    //         if (args.commandColumn.type == "Edit") {
+    //             previewFile(args.rowData.name);
+    //         }
+    //         else {
+    //             deleteFiles(args.rowData.name);
+    //         }
+    //     },
+    // });
+    // grid.appendTo('#Grid');
+
+    //Delete the files with the address
+    const deleteFiles = (address) => {
+      // swal({
+      //     title: "Are you sure you want to delete?",
+      //     text: `Deleting file ${fileName}`,
+      //     icon: "warning",
+      //     buttons: true,
+      //     dangerMode: true,
+      // })
+      //     .then(async (willDelete) => {
+      //         if (willDelete) {
+      try {
+        //Assign address to account address
+        var record = {};
+        record.AccountAddress = address;
+
+        //Append headers with the x-chain-id and authorization    
+        var myHeaders = new Headers();
+        myHeaders.append("x-chain-id", "1001");
+        myHeaders.append("Authorization", "Basic S0FTSzhISUpGV0hISjk1VUtKR0FLSzMxOmtJRm5TUk9abnJub0NTVXRrQWNGUWtCbEQ0bXUwYlBZNUl3Qkt3WmU=");
+
+        //Create requestOptions
+        var requestOptions = {
+          method: 'DELETE',
+          headers: myHeaders,
+          redirect: 'follow'
+        };
+        debugger
+        console.log(record.AccountAddress);
+
+        //Create syncfusion grid with the values from the API request
+        fetch("https://wallet-api.klaytnapi.com/v2/account/" + record.AccountAddress, requestOptions)
+          .then(response => response.text())
+          .then(data => {
+            alert(JSON.stringify(data))
+
+            fetch(url, requestOptions)
+              .then(response => response.text())
+              .then(data => {
+                var gridData = JSON.parse(data);
+                gridData = gridData["items"];
+                grid.dataSource = gridData;
+                debugger
+                grid.refresh();
+              })
+          })
+
+        //{
+        // alert(data);
+        // document.getElementById("myText").innerHTML = "";
+        // data = JSON.parse(data);
+        // document.getElementById("myText").innerHTML += 'status'.toUpperCase() + " : " + data['status'] + "\n";
+        // $('#myText').show();
+        //}
+
+      }
+      catch (error) {
+        setAlert("alert-warning", error.body.message);
+      }
+    }
+
+
+    // document.addEventListener("DOMContentLoaded", _ => {
+    //   $('#feedbackGrid').hide();
+    //   var paramsObj = {}
+    //   paramsObj.type = "Ripple";
+    //   paramsObj.queryType = "txhistory";
+    //   paramsObj.account = "rwRixyDvKsYRCxiov8g3WE8PXRyH1AYkT8";
+    //   paramsObj.record = {};
+
+    //   let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(paramsObj)
+    //   fetch(url)
+    //     .then(response => response.json())
+    //     .then(data => {
+
+    //       grid = new ej.grids.Grid({
+
+    //         dataSource: data,
+    //         allowSelection: true,
+    //         allowFiltering: true,
+    //         allowSorting: true,
+    //         allowPaging: true,
+    //         enableVirtualization: true,
+    //         toolbar: ['Search'],
+    //         filterSettings: { type: 'Menu' },
+    //         selectionSettings: { persistSelection: false, type: "Multiple", checkboxOnly: true },
+    //         enableHover: false,
+    //         enableHeaderFocus: true,
+    //         pageSettings: { pageCount: 4, pageSizes: true },
+    //         height: 300,
+    //         rowHeight: 38,
+    //         columns: [
+    //           { field: 'TransactionType', headerText: 'Transaction Type' },
+    //           { field: 'date', headerText: 'Date' },
+    //           { field: 'Amount', headerText: 'Amount value' },
+    //           { field: 'Type', headerText: 'Type' },
+    //           { field: 'Account', headerText: 'From' },
+    //           { field: 'Destination', headerText: 'To' },
+
+    //           { field: 'Fee', headerText: 'Fee' },
+    //           { field: 'Sequence', headerText: 'Sequence' },
+    //           // { field: 'TxnSignature', headerText: 'Txn Signature' },
+    //           { field: 'hash', headerText: 'Hash', visible: false },
+    //           { field: 'ledger_index', headerText: 'ledger_index', visible: false },
+
+    //           {
+    //             headerText: 'Hash', width: 100,
+    //             commands: [{ type: 'Edit', buttonOption: { iconCss: ' e-icons e-hyperlink-open', cssClass: 'e-flat' } }]
+    //           }
+    //         ],
+    //         commandClick: (args) => {
+    //           debugger
+    //           if (args.commandColumn.type == "Edit") {
+    //             //handleUpdateFeedback();
+
+    //             var hash = `${args.rowData.hash}`
+    //             window.open("https://testnet.xrpl.org/transactions/" + hash, "_blank");
+    //           }
+    //         }
+
+    //       });
+    //       grid.appendTo('#feedbackGrid');
+    //     });
+
+    // });
+    //Creating a button, which make payments when clicked 
+    sendPaymentBtn = () => {
+      let insertFormEle = document.querySelector("#paymentForm");
+      insertFormEle.style.display = insertFormEle.style.display == "none" ? "" : "none";
+      $('#feedbackGrid').hide();
+      $('#searchForm').hide();
+      $('#paymentForm').html("");
+      let newUuid = uuidv4();
+      //Define the schema
+      $('#paymentForm').jsonForm({
+        schema: {
+          SenderKey: {
+            type: 'string',
+            default: "0x88782bc6aB5D6868a2EFe67458C1E39843b989da",
+            title: 'Enter Sender Account Key',
+            required: true
+          },
+          ReceiversKey: {
+            type: 'string',
+            default: "0x527905b066fCC237b12E801C385ef68Cdcd80B6f",
+            title: 'Enter Receivers Key',
+            required: true
+          },
+          Gas: {
+            type: 'number',
+            default: 25000,
+            title: 'Enter Gas Value',
+            required: true
+          },
+
+          Amount: {
+            type: 'string',
+            title: 'Enter Amount',
+            default: "0x100",
+            required: true
+          },
+        },
+        form: [
+          {
+            key: "SenderKey",
+            type: "text"
+          },
+          {
+            key: "ReceiversKey",
+            type: "text"
+          },
+          {
+            key: "Gas",
+            type: "text"
+          },
+          {
+            key: "Amount",
+            type: "text"
+          },
+
+          {
+            type: "submit",
+            title: "Confirm Payment"
+          }
+        ],
+        onSubmit: function (errors, values) {
+          if (errors) {
+            $('#res').html('<p>Please fill required fields!</p>');
+          }
+          else {
+            debugger
+            console.log(values);
+            
+            //Create an object record and store the SenderKey, gas, amount, receivers key
+            var record = {};
+            record.SenderKey = values.SenderKey;
+            record.Gas = values.Gas;
+            record.ReceiversKey = values.ReceiversKey;
+            record.Amount = values.Amount;
+
+            //Append headers with the x-chain-id and authorization    
+            var myHeaders = new Headers();
+            myHeaders.append("x-chain-id", "1001");
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("Authorization", "Basic S0FTSzhaVUFGVUxIOUNTRU5NWUI0VFE1OmplYlUxVExxRVhxZ0RhYTNQRVY2UmdFd0FKdzNVcENRMnctdWtUVUg=");
+
+            //Create raw to store the sender key, gas limit, etc
+            var raw = JSON.stringify({
+              "from": record.SenderKey,
+              "value": record.Amount,
+              "to": record.ReceiversKey,
+              "memo": "memo",
+              "nonce": 0,
+              "gasLimit": record.Gas,
+              "submit": true
+            });
+
+            //Create requestOptions
+            var requestOptions = {
+              method: 'POST',
+              headers: myHeaders,
+              body: raw,
+              redirect: 'follow'
+            };
+
+            //Create syncfusion grid with the values from the API request
+            fetch("https://wallet-api.klaytnapi.com/v2/tx/value", requestOptions)
+              .then(response => response.text())
+              .then(data => {
+                alert(data);
+                document.getElementById("myText").innerHTML = "";
+                document.getElementById("myText").innerHTML += "Your Fund Transfer Details:" + "\n";
+                // alert(JSON.stringify(data));
+                data = JSON.parse(data);
+                 //Parse the data by looping through the list of values
+                for (var key in data) {
+                  //if (data.hasOwnProperty(key)) {
+                  debugger
+                  if (typeof (data[key]) == "object") {
+                    document.getElementById("myText").innerHTML += "\n";
+                    document.getElementById("myText").innerHTML += "Make Payment " + key.toUpperCase() + " Details:" + "\n";
+                    for (var key1 in data[key]) {
+                      if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                        document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                      }
+                    }
+                    document.getElementById("myText").innerHTML += "\n";
+                  }
+                  else if (data[key] != "" && data[key] != null) {
+                    document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+                  }
+                  // console.log(key + " : " + data.account_data[key]);
+
+
+                  // document.getElementById("myText").innerHTML += JSON.stringify(data) + "\n";
+                  //}
+                }
+                $('#myText').show();
+
+              })
+              .catch(error => console.log('error', error));
+            // let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(paramsObj);
+            // fetch(url)
+            // .then(response=>response.text())
+            // .then(data=>{
+            //   alert(data);
+            //   var fetchObj = {};
+            //   fetchObj.type = "MongodbData";
+            //   fetchObj.database = "Industry";
+            //   fetchObj.collection = "Suppliers";
+            //   fetchObj.queryType = "read";
+            //   fetchObj.record = {};
+            //   let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(fetchObj);
+            //   fetch(url)
+            //   .then(response=>response.json())
+            //   .then(data=>{
+            //     grid.dataSource = data;
+            //     sendPaymentBtn();
+            //   })
+            // })
+          }
+        }
+      });
+
+    }
+
+    //Update form
+    handleUpdateFeedback = () => {
+      let updateFormEle = document.querySelector("#updateForm");
+      updateFormEle.style.display = updateFormEle.style.display == "none" ? "" : "none";
+    }
+
+    // scanQRBtn = () => {
+    //   var paramsObj = {};
+    //   paramsObj.type = "Ripple";
+    //   paramsObj.queryType = "qrcode";
+
+    //   //alert(paramsObj)
+
+    //   let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(paramsObj);
+    //   fetch(url)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //       window.open(data, "_blank");
+    //     })
+    // }
+    //Function to get account details
+    function accountDetails() {
+      //Append headers with the x-chain-id and authorization    
+      var myHeaders = new Headers();
+      myHeaders.append("x-chain-id", "1001");
+      myHeaders.append("Authorization", "Basic S0FTSzhISUpGV0hISjk1VUtKR0FLSzMxOmtJRm5TUk9abnJub0NTVXRrQWNGUWtCbEQ0bXUwYlBZNUl3Qkt3WmU=");
+
+      //Create requestOptions
+      var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+      };
+
+      //Create syncfusion grid with the values from the API request
+      var data = fetch("https://wallet-api.klaytnapi.com/v2/account?&size=100&cursor=&from-timestamp=1592360291&to-timestamp=15991809920", requestOptions)
+      // .then(response => response.text())
+      // .then(result => console.log(result))
+      // .then(data => console.log(data))
+      // .then(data => {
+      //         alert(data);
+      //         document.getElementById("myText").innerHTML = "";
+      //         // alert(JSON.stringify(data));
+      //         data = JSON.parse(data);
+      //         data = data["items"];
+      //         for (var key in data) {
+      //         //if (data.hasOwnProperty(key)) {
+      //         debugger
+      //         if (typeof (data[key]) == "object") {
+      //           document.getElementById("myText").innerHTML += "\n";
+      //           document.getElementById("myText").innerHTML += key.toUpperCase() + "\n";
+      //           for (var key1 in data[key]) {
+      //             if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+      //               document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+      //             }
+      //           }
+      //           document.getElementById("myText").innerHTML += "\n";
+      //         }
+      //         else if (data[key] != "" && data[key] != null) {
+      //           document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+      //         }
+      //         $('#myText').show();
+      //       }
+      //     })
+      // .catch(error => console.log('error', error));
+      return data;
+
+    }
+    //Creating a button, which creates an account when clicked
+    createAccountBtn = () => {
+      let insertFormEle = document.querySelector("#createAccountForm");
+      insertFormEle.style.display = insertFormEle.style.display == "none" ? "" : "none";
+      $('#feedbackGrid').hide();
+      $('#searchForm').hide();
+      $('#createAccountForm').html("");
+      let newUuid = uuidv4();
+      //Create Schema
+      $('#createAccountForm').jsonForm({
+        schema: {
+          AccountPool: {
+            type: 'string',
+            default: "krn:1001:wallet:4c50c0ca-d56f-4d70-9ffd-6f2f3dc2f5f5:account-pool:Kanpur",
+            title: 'Enter Account Pool',
+            required: true
+          }
+        },
+        form: [
+          {
+            key: "AccountPool",
+            type: "text"
+          },
+          {
+            type: "submit",
+            title: "Create Account"
+          }
+        ],
+        onSubmit: function (errors, values) {
+          if (errors) {
+            $('#res').html('<p>Please fill required fields!</p>');
+          }
+          else {
+            debugger
+            console.log(values);
+            
+            //Create an object record and store the account pool
+            var record = {};
+            record.AccountPool = values.AccountPool;
+
+            //Append headers with the x-chain-id and authorization
+            var myHeaders = new Headers();
+            myHeaders.append("x-chain-id", "1001");
+            myHeaders.append("x-krn", record.AccountPool);
+            myHeaders.append("Authorization", "Basic S0FTSzhISUpGV0hISjk1VUtKR0FLSzMxOmtJRm5TUk9abnJub0NTVXRrQWNGUWtCbEQ0bXUwYlBZNUl3Qkt3WmU=");
+
+            //Create requestOptions
+            var requestOptions = {
+              method: 'POST',
+              headers: myHeaders,
+              redirect: 'follow'
+            };
+
+            //Create syncfusion grid with the values from the API request
+            fetch("https://wallet-api.klaytnapi.com/v2/account", requestOptions)
+              .then(response => response.text())
+              .then(data => {
+                alert(data);
+                document.getElementById("myText").innerHTML = "";
+                // alert(JSON.stringify(data));
+                data = JSON.parse(data);
+                data = data["items"];
+                 //Parse the data by looping through the list of values
+                for (var key in data) {
+                  //if (data.hasOwnProperty(key)) {
+                  debugger
+                  if (typeof (data[key]) == "object") {
+                    document.getElementById("myText").innerHTML += "\n";
+                    document.getElementById("myText").innerHTML += key.toUpperCase() + "\n";
+                    for (var key1 in data[key]) {
+                      if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                        document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                      }
+                    }
+                    document.getElementById("myText").innerHTML += "\n";
+                  }
+                  else if (data[key] != "" && data[key] != null) {
+                    document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+                  }
+                  $('#myText').show();
+                }
+              })
+              .catch(error => console.log('error', error));
+          }
+        }
+      });
+    }
+    //Function to get account details
+    GetAccountInformation = () => {
+      let insertFormEle = document.querySelector("#GetAccountInformationForm");
+      insertFormEle.style.display = insertFormEle.style.display == "none" ? "" : "none";
+      $('#feedbackGrid').hide();
+      $('#searchForm').hide();
+      $('#GetAccountInformationForm').html("");
+      let newUuid = uuidv4();
+      $('#GetAccountInformationForm').jsonForm({
+        schema: {
+          AccountAddress: {
+            type: 'string',
+            default: "0x916cb8ddE8A372754b18B978357ccD831E94BcAf",
+            title: 'Enter Account Address',
+            required: true
+          }
+        },
+        form: [
+          {
+            key: "AccountAddress",
+            type: "text"
+          },
+          {
+            type: "submit",
+            title: "Account Details"
+          }
+        ],
+        onSubmit: function (errors, values) {
+          if (errors) {
+            $('#res').html('<p>Please fill required fields!</p>');
+          }
+          else {
+            debugger
+            console.log(values);
+            
+            //Create an object record and store the account address
+            var record = {};
+            record.AccountAddress = values.AccountAddress;
+
+            //Append headers with the x-chain-id and authorization
+            var myHeaders = new Headers();
+            myHeaders.append("x-chain-id", "1001");
+            myHeaders.append("Authorization", "Basic S0FTSzhISUpGV0hISjk1VUtKR0FLSzMxOmtJRm5TUk9abnJub0NTVXRrQWNGUWtCbEQ0bXUwYlBZNUl3Qkt3WmU=");
+
+            //Create requestOptions
+            var requestOptions = {
+              method: 'GET',
+              headers: myHeaders,
+              redirect: 'follow'
+            };
+
+            //Create syncfusion grid with the values from the API request
+            fetch("https://wallet-api.klaytnapi.com/v2/account/" + record.AccountAddress, requestOptions)
+              .then(response => response.text())
+              .then(data => {
+                alert(data);
+                document.getElementById("myText").innerHTML = "";
+                // alert(JSON.stringify(data));
+                data = JSON.parse(data);
+                data = data["items"];
+                 //Parse the data by looping through the list of values
+                for (var key in data) {
+                  //if (data.hasOwnProperty(key)) {
+                  debugger
+                  if (typeof (data[key]) == "object") {
+                    document.getElementById("myText").innerHTML += "\n";
+                    document.getElementById("myText").innerHTML += key.toUpperCase() + "\n";
+                    
+                    for (var key1 in data[key]) {
+                      if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                        document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                      }
+                    }
+                    document.getElementById("myText").innerHTML += "\n";
+                  }
+                  else if (data[key] != "" && data[key] != null) {
+                    document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+                  }
+                  $('#myText').show();
+                }
+              })
+              .catch(error => console.log('error', error));
+          }
+        }
+      });
+    }
+    //function to delete account
+    function DeleteAccount(address) {
+      // let insertFormEle = document.querySelector("#DeleteAccountForm");
+      // insertFormEle.style.display = insertFormEle.style.display == "none" ? "" : "none";
+      // $('#feedbackGrid').hide();
+      // $('#searchForm').hide();
+      // $('#DeleteAccountForm').html("");
+      // let newUuid = uuidv4();
+      // $('#DeleteAccountForm').jsonForm({
+      //   schema: {
+      //     AccountAddress: {
+      //       type: 'string',
+      //       default: "0x4AfE283Df1E9581C333888a301d8134D4aed4a53",
+      //       title: 'Enter Account Address',
+      //       required: true
+      //     }
+      //   },
+      //   form: [
+      //     {
+      //       key: "AccountAddress",
+      //       type: "text"
+      //     },
+      //     {
+      //       type: "submit",
+      //       title: "Account Details"
+      //     }
+      //   ],
+      //   onSubmit: function (errors, values) {
+
+      //     if (errors) {
+      //       $('#res').html('<p>Please fill required fields!</p>');
+      //     }
+      //     else {
+      debugger
+      console.log(address);
+
+      //Create an object record and store the account address
+      var record = {};
+      record.AccountAddress = address;
+      
+      //Append headers with the x-chain-id and authorization
+      var myHeaders = new Headers();
+      myHeaders.append("x-chain-id", "1001");
+      myHeaders.append("Authorization", "Basic S0FTSzhISUpGV0hISjk1VUtKR0FLSzMxOmtJRm5TUk9abnJub0NTVXRrQWNGUWtCbEQ0bXUwYlBZNUl3Qkt3WmU=");
+
+      //Create requestOptions
+      var requestOptions = {
+        method: 'DELETE',
+        headers: myHeaders,
+        redirect: 'follow'
+      };
+
+      //Create syncfusion grid with the values from the API request
+      fetch("https://wallet-api.klaytnapi.com/v2/account/" + record.AccountAddress, requestOptions)
+        .then(response => response.text())
+        .then(data => {
+          alert(data);
+          document.getElementById("myText").innerHTML = "";
+          data = JSON.parse(data);
+          document.getElementById("myText").innerHTML += 'status'.toUpperCase() + " : " + data['status'] + "\n";
+          $('#myText').show();
+        }
+        )
+        .catch(error => console.log('error', error));
+    }
+
+    //function to acctivate account
+    ActivateAccount = () => {
+      let insertFormEle = document.querySelector("#ActivateAccountForm");
+      insertFormEle.style.display = insertFormEle.style.display == "none" ? "" : "none";
+      $('#feedbackGrid').hide();
+      $('#searchForm').hide();
+      $('#ActivateAccountForm').html("");
+      let newUuid = uuidv4();
+      //Create Schema
+      $('#ActivateAccountForm').jsonForm({
+        schema: {
+          AccountAddress: {
+            type: 'string',
+            default: "0xD0c8448EdFE7FEA845D3e571AcC3bA46de425fc8",
+            title: 'Enter Account Address',
+            required: true
+          }
+        },
+        form: [
+          {
+            key: "AccountAddress",
+            type: "text"
+          },
+          {
+            type: "submit",
+            title: "Activate Account"
+          }
+        ],
+        onSubmit: function (errors, values) {
+          if (errors) {
+            $('#res').html('<p>Please fill required fields!</p>');
+          }
+          else {
+            debugger
+            console.log(values);
+            //Create an object record and store the account address
+            var record = {};
+            record.AccountAddress = values.AccountAddress;
+            
+            //Append headers with the x-chain-id and authorization
+            var myHeaders = new Headers();
+            myHeaders.append("x-chain-id", "1001");
+            myHeaders.append("Authorization", "Basic S0FTSzhISUpGV0hISjk1VUtKR0FLSzMxOmtJRm5TUk9abnJub0NTVXRrQWNGUWtCbEQ0bXUwYlBZNUl3Qkt3WmU=");
+
+            //create requestOptions
+            var requestOptions = {
+              method: 'PUT',
+              headers: myHeaders,
+              redirect: 'follow'
+            };
+            
+            //Create syncfusion grid with the values from the API request
+            fetch("https://wallet-api.klaytnapi.com/v2/account/" + record.AccountAddress + "/enable", requestOptions)
+              .then(response => response.text())
+              .then(data => {
+                alert(data);
+                document.getElementById("myText").innerHTML = "";
+                // alert(JSON.stringify(data));
+                data = JSON.parse(data);
+                data = data["items"];
+
+                 //Parse the data by looping through the list of values
+                for (var key in data) {
+                  //if (data.hasOwnProperty(key)) {
+                  debugger
+                  if (typeof (data[key]) == "object") {
+                    document.getElementById("myText").innerHTML += "\n";
+                    document.getElementById("myText").innerHTML += key.toUpperCase() + "\n";
+                    for (var key1 in data[key]) {
+                      if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                        document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                      }
+                    }
+                    document.getElementById("myText").innerHTML += "\n";
+                  }
+                  else if (data[key] != "" && data[key] != null) {
+                    document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+                  }
+                  $('#myText').show();
+                }
+              })
+              .catch(error => console.log('error', error));
+          }
+        }
+      });
+    }
+    //Function to deactivate account
+    DeactivateAccount = () => {
+      let insertFormEle = document.querySelector("#DeactivateAccountForm");
+      insertFormEle.style.display = insertFormEle.style.display == "none" ? "" : "none";
+      $('#feedbackGrid').hide();
+      $('#searchForm').hide();
+      $('#DeactivateAccountForm').html("");
+      let newUuid = uuidv4();
+      $('#DeactivateAccountForm').jsonForm({
+        schema: {
+          AccountAddress: {
+            type: 'string',
+            default: "0xD0c8448EdFE7FEA845D3e571AcC3bA46de425fc8",
+            title: 'Enter Account Address',
+            required: true
+          }
+        },
+        form: [
+          {
+            key: "AccountAddress",
+            type: "text"
+          },
+          {
+            type: "submit",
+            title: "Deactivate Account"
+          }
+        ],
+        onSubmit: function (errors, values) {
+          if (errors) {
+            $('#res').html('<p>Please fill required fields!</p>');
+          }
+          else {
+            debugger
+            console.log(values);
+            //Create an object record and store the account address
+            var record = {};
+            record.AccountAddress = values.AccountAddress;
+
+            //Append headers with the x-chain-id and authorization
+            var myHeaders = new Headers();
+            myHeaders.append("x-chain-id", "1001");
+            myHeaders.append("Authorization", "Basic S0FTSzhISUpGV0hISjk1VUtKR0FLSzMxOmtJRm5TUk9abnJub0NTVXRrQWNGUWtCbEQ0bXUwYlBZNUl3Qkt3WmU=");
+            //Create requestOptions
+            var requestOptions = {
+              method: 'PUT',
+              headers: myHeaders,
+              redirect: 'follow'
+            };
+
+            //Create syncfusion grid with the values from the API request
+            fetch("https://wallet-api.klaytnapi.com/v2/account/" + record.AccountAddress + "/disable", requestOptions)
+              .then(response => response.text())
+              .then(data => {
+                alert(data);
+                document.getElementById("myText").innerHTML = "";
+                // alert(JSON.stringify(data));
+                data = JSON.parse(data);
+                data = data["items"];
+                //Parse the data by looping through the list of values
+                for (var key in data) {
+                  //if (data.hasOwnProperty(key)) {
+                  debugger
+                  if (typeof (data[key]) == "object") {
+                    document.getElementById("myText").innerHTML += "\n";
+                    document.getElementById("myText").innerHTML += key.toUpperCase() + "\n";
+                    for (var key1 in data[key]) {
+                      if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                        document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                      }
+                    }
+                    document.getElementById("myText").innerHTML += "\n";
+                  }
+                  else if (data[key] != "" && data[key] != null) {
+                    document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+                  }
+                  $('#myText').show();
+                }
+              })
+              .catch(error => console.log('error', error));
+          }
+        }
+      });
+    }
+
+  </script>
+</body>
+
+</html>

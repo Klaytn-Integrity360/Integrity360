@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html>
+ <!--
+  year:    2022 
+  Languages: Javascript, HTML, CSS  
+  Description:  User can add, modify or view the list of Companies.
+
+
+-->
+<head>
+  <meta charset="utf-8" />
+  
+  <title>Manage Company</title>
+  <!--Link the required stylesheets to register supplier-->
+  <!-- <link rel="stylesheet" type="text/css"
+    href="https://storage.googleapis.com/chart-api-db/CDN/deps/opt/bootstrap.css" /> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://storage.cloud.google.com/integrity360/assets/css/main.css" />
+</head>
+
+<body>
+  <div id="page-wrapper">
+	<!-- Header -->
+  <div id="header">
+    <img>
+    <!-- Nav -->
+    <nav id="nav">
+      <ul>
+        <!--List the pages -->
+        <li><a href="index.html">Home</a></li>
+        <li>
+          <a href="ManageAgency.html">Government Agencies</a>
+          <ul>
+            <li><a href="ManageAgency.html">Manage DEI Agencies</a></li>
+            <li><a href="ManageDEIAccounts.html">Manage Diversity Klaytn Accounts</a></li>
+            <li><a href="DEIComplianceDashboard.html">DEI Compliance Dashboards</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="ManageCompany.html">Companies</a>
+          <ul>
+            <li><a href="ManageCompany.html">Manage Companies</a></li>
+            <li><a href="RegisterSupplier.html">Add Supplier Information as Klaytn Transaction</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="DEIComplianceDashboard.html">Compliance Auditors</a>
+          <ul>
+            <li><a href="DEIComplianceDashboard.html">DEI Metrics from Klaytn Transactions</a></li>
+							  <li><a href="DeviationApproval.html">Raise a Multi-Seg Deviation Transaction</a></li>
+          </ul>
+        </li>
+       
+        <li><a href="About.html">About</a></li>
+      </ul>
+    </nav>
+
+  </div>
+  </div>
+  <div class="container">
+    <div style="margin-top: 30px;">
+      <!--Intro to supplier/Vendor-->
+      <ol style="background-color:antiquewhite; font-size: larger;color: black;">
+        <li>A company is an entity in the Integrity system, which requies to enter details of all Suppliers joining the company</li>
+        <li>A company also has a Klaytn Account to identify itself</li>
+        </li>
+      </ol>
+    </div>
+    <!--Create payment, account details button-->
+    <button class="btn btn-primary my-3" onclick="handleInsertFeedbackBtn()">Add Compliance Company</button>
+    <!-- <button class="btn btn-primary my-3" onclick="handleSearch()">Account Details</button> -->
+    <form id="searchForm" style="display: none;"></form>
+    <form id="paymentForm" style="display: none;"></form>
+  
+    <form id="qrCode" style="display: none;"></form>
+    <pre id="myText" style="display: none;"></pre>
+    <div id="feedbackGrid" class="mt-3"></div>
+  </div>
+  <br></br>
+  <div class="modal fade" id="exampleModal" style="margin-top: 50px;" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Fill Supplier Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <form id="insertForm" style="display: none;"></form>
+          <form id="updateForm" style="display: none;"></form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer id="footer">
+		<div class="row">
+      <div class="col-12" align="center">
+
+        <!-- Contact Information -->
+          <section class="contact">
+            <header>
+              <header>
+                <b>Looking for Deploying Integrity360 to your Organization/Government</b>
+                <br><i>Integrity360 is a zero deployment package just requiring a cloud web space and Klaytn Account.</i>
+              </header>
+            </header>
+            
+          </section>
+
+        <!-- Copyrights Information -->
+          <div class="copyright">
+            <ul class="menu">
+              <li>&copy; Integrity360. All rights reserved.</li>
+            </ul>
+          </div>
+
+      </div>
+
+    </div>
+  </footer>
+
+  <div id="res" class="alert"></div>
+  <!--Link the required script files to registersupplier-->
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/jquery.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/jquery.dropotron.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/jquery.scrollex.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/browser.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/breakpoints.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/util.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/main.js"></script>
+  <script type="text/javascript" src="https://storage.googleapis.com/chart-api-db/CDN/deps/underscore.js"></script>
+  <script type="text/javascript" src="https://storage.googleapis.com/chart-api-db/CDN/deps/opt/jsv.js"></script>
+  <script type="text/javascript" src="https://storage.googleapis.com/chart-api-db/CDN/lib/jsonform.js"></script>
+  <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js" type="text/javascript"></script>
+  <link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuidv4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+
+  <script type="text/javascript">
+
+document.addEventListener("DOMContentLoaded", _ => {
+      $('#feedbackGrid').show();
+      //create paramsObj
+      var paramsObj = {}
+      paramsObj.type = "MongodbData";
+      paramsObj.database = "Industry";
+      paramsObj.collection = "Suppliers";
+      paramsObj.queryType = "read";
+      paramsObj.record = {};
+      //call the api
+      let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(paramsObj)
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          //Add syncfusion grid and set the properties
+          grid = new ej.grids.Grid({
+            dataSource: data,
+            allowSelection: true,
+            allowFiltering: true,
+            allowTextWrap: true,
+            allowSorting: true,
+            allowPaging: true,
+            enableVirtualization: true,
+            toolbar: ['Search'],
+            filterSettings: { type: 'Menu' },
+            selectionSettings: { persistSelection: true, type: "Multiple", checkboxOnly: true },
+            enableHover: false,
+            enableHeaderFocus: true,
+            pageSettings: { pageCount: 4, pageSizes: true },
+            height: 300,
+            rowHeight: 38,
+            //Add fields and required width
+            columns: [
+              { field: 'SupplierID', headerText: 'ID', width: 100 },
+              { field: 'SupplierName', headerText: 'Name', width: 120 },
+              { field: 'Category', headerText: 'Category', width: 130 },
+              { field: 'Website', headerText: 'Website', visible: false },
+              { field: 'Resources', headerText: 'Resources', width: 90, visible: false },
+              { field: 'Country', headerText: 'Country', width: 100 },
+              { field: 'AddressId', headerText: 'Address', width: 300 },
+              {
+                headerText: 'Action', width: 120,
+                commands: [{ type: 'Edit', buttonOption: { iconCss: ' e-icons e-edit', cssClass: 'e-flat' } },
+                { type: 'Delete', buttonOption: { iconCss: 'e-icons e-delete', cssClass: 'e-flat' } },
+                { type: 'Redirect', buttonOption: { iconCss: ' e-icons e-hyperlink-open', cssClass: 'e-flat' } }]
+              }
+            ],
+             //Create on click action
+            commandClick: (args) => {
+              debugger
+               //check if command is Redirect
+              if (args.commandColumn.type == "Redirect") {
+                //handleUpdateFeedback();
+
+                // var hash = `${args.rowData.hash}`
+                var id = `${args.rowData.SupplierID}`;
+                var supplierName = `${args.rowData.SupplierName}`;
+                localStorage.setItem("supplier_id", id);
+                localStorage.setItem("supplier_name", supplierName);
+                window.open("RegisterSupplier.html", "_blank");
+              }
+              //check if command is edit
+              if (args.commandColumn.type == "Edit") {
+                //handleUpdateFeedback();
+
+
+                let updateFormEle = document.querySelector("#updateForm");
+                updateFormEle.style.display = "";
+                $('#insertForm').hide();
+                $("#exampleModalLabel").html("Update Details on Compliance Company:");
+                $('#updateForm').html("");
+                $('#exampleModal').modal('show');
+                $('#updateForm').jsonForm({
+                  //create schema
+                  schema: {
+                    SupplierID: {
+                      type: 'number',
+                      //readonly: true,
+                      default: "229577",
+                      title: "Company ID"
+                    },
+                    SupplierName: {
+                      type: 'string',
+                      required: true,
+                      default: "oracle",
+                      title: "Company Name"
+                    },
+                    Category: {
+                      type: 'string',
+                      required: true,
+                      title: 'Select Category',
+                      enum: [
+                        'Technology',
+                        'Logistics',
+                        'Retail',
+                        'Construction',
+                        'Training',
+                        'Software',
+                        'Consulting',
+                        'Marketing'
+                      ]
+                    },
+                    Website: {
+                      type: 'string'
+                    },
+                    Start: {
+                      type: 'number'
+                    },
+                    Function: {
+                      type: 'string',
+                      required: true
+                    },
+                    Resources: {
+                      type: 'string'
+                    },
+                    Region: {
+                      type: 'string'
+                    },
+                    Country: {
+                      type: 'string',
+                      required: true
+                    },
+                    LinkedinUrl: {
+                      type: 'string'
+                    },
+                    Services: {
+                      type: 'string',
+                      required: true
+                    }
+                  },
+                  value: {
+                    SupplierID: `${args.rowData.SupplierID}`,
+                    SupplierName: `${args.rowData.SupplierName}`,
+                    Category: `${args.rowData.Category}`,
+                    Website: `${args.rowData.Website}`,
+                    Year: `${args.rowData.Start}`,
+                    Function: `${args.rowData.Function}`,
+                    Resources: `${args.rowData.Resources}`,
+                    Region: `${args.rowData.Region}`,
+                    Country: `${args.rowData.Country}`,
+                    LinkedinUrl: `${args.rowData.LinkedinUrl}`,
+                    Services: `${args.rowData.Services}`
+                  },
+                  form: [
+                    {
+                      key: "SupplierID",
+                      type: "text"
+                    },
+                    {
+                      key: "SupplierName",
+                      type: "text"
+                    },
+                    {
+                      key: "Category"
+                    },
+                    {
+                      key: "Website",
+                      type: "text"
+                    },
+                    {
+                      key: "Start",
+                      type: "text"
+                    },
+                    {
+                      key: "Function",
+                      type: "text"
+                    },
+                    {
+                      key: "Resources",
+                      type: "text"
+                    },
+                    {
+                      key: "Region",
+                      type: "text"
+                    },
+                    {
+                      key: "Country",
+                      type: "text"
+                    },
+                    {
+                      key: "LinkedinUrl",
+                      type: "text"
+                    },
+                    {
+                      key: "Services",
+                      type: "text"
+                    },
+                    {
+                      type: "submit",
+                      title: "Update Company"
+                    }
+                  ],
+                  onSubmit: function (errors, values) {
+                    if (errors) {
+                      $('#res').html('<p>Please fill required fields!</p>');
+                    }
+                    else {
+                      console.log(values);
+                      $('#exampleModal').modal('hide');
+                      //create paramsObj
+                      var paramsObj = {};
+                      paramsObj.type = "MongodbData";
+                      paramsObj.database = "Industry";
+                      paramsObj.collection = "Suppliers";
+                      paramsObj.queryType = "update";
+                      var old_record = {};
+                      old_record.SupplierID = values.SupplierID;
+                      paramsObj.oldRecord = old_record;
+                      //create record
+                      var record = {};
+                      record.SupplierID = values.SupplierID;
+                      record.SupplierName = values.SupplierName;
+                      record.Category = values.Category;
+                      record.Website = values.Website;
+                      record.Year = values.Year;
+                      record.Function = values.Function;
+                      record.Resources = values.Resources;
+                      record.Region = values.Region;
+                      record.Country = values.Country;
+                      record.LinkedinUrl = values.LinkedinUrl;
+                      record.Services = values.Services;
+                      paramsObj.record = record;
+                       //call the api
+                      let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(paramsObj);
+                      fetch(url)
+                        .then(response => response.text())
+                        .then(data => {
+                          alert(data);
+                          //create fetchObj
+                          var fetchObj = {};
+                          fetchObj.type = "MongodbData";
+                          fetchObj.database = "Industry";
+                          fetchObj.collection = "Suppliers";
+                          fetchObj.queryType = "read";
+                          fetchObj.record = {};
+                           //call the api
+                          let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(fetchObj);
+                          fetch(url)
+                            .then(response => response.json())
+                            .then(data => {
+                              grid.dataSource = data;
+                              $('#feedbackGrid').show();
+                              //handleUpdateFeedback();
+                              updateFormEle.style.display = "none";
+                              // window.location.href = "Supplier360_ManageSuppliers.html"
+                            })
+                        })
+                    }
+                  }
+                });
+              }
+              else {
+                var confirmDel = confirm("Are you sure to delete company " + args.rowData.SupplierID);
+                if (confirmDel == true) {
+                  //create paramsObj
+                  var paramsObj = {};
+                  paramsObj.type = "MongodbData";
+                  paramsObj.database = "Industry";
+                  paramsObj.collection = "Suppliers";
+                  paramsObj.queryType = "delete";
+                  //create record
+                  var record = {};
+                  record.SupplierID = args.rowData.SupplierID;
+                  paramsObj.record = record;
+                   //call the api
+                  let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(paramsObj);
+                  fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                      alert(data);
+                      //create fetchObj
+                      var fetchObj = {};
+                      fetchObj.type = "MongodbData";
+                      fetchObj.database = "Industry";
+                      fetchObj.collection = "Suppliers";
+                      fetchObj.queryType = "read";
+                      fetchObj.record = {};
+                       //call the api
+                      let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(fetchObj);
+                      fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                          grid.dataSource = data;
+                          $('#feedbackGrid').show();
+                        })
+                    })
+                }
+              }
+            }
+          });
+          grid.appendTo('#feedbackGrid');
+        });
+
+    });
+
+    handleInsertFeedbackBtn = () => {
+
+      let insertFormEle = document.querySelector("#insertForm");
+      insertFormEle.style.display ="";
+      // insertFormEle.style.display = insertFormEle.style.display == "none" ? "" : "none";
+      $("#exampleModalLabel").html("Add a new Compliance Company: ");
+      $('#exampleModal').modal('show');
+      $('#updateForm').hide();
+      $('#insertForm').html("");
+      let newUuid = uuidv4();
+      $('#insertForm').jsonForm({
+        schema: {
+          CompanyID: {
+            type: 'number',
+            default:1678731,
+            required: true,
+            
+          },
+          CompanyName: {
+            type: 'string',
+            default:"AXL Technologies",
+            required: true
+          },
+          Category: {
+            type: 'string',
+            required: true,
+            default:"Technology",
+            title: 'Select Category',
+            enum: [
+              'Technology',
+              'Logistics',
+              'Retail',
+              'Construction',
+              'Training',
+              'Software',
+              'Consulting',
+              'Marketing'
+            ]
+          },
+          Website: {
+            type: 'string',
+            default:"axl@tech.com"
+          },
+          Year: {
+            type: 'number',
+            default:1998
+          },
+          Function: {
+            type: 'string',
+            default:"information technology and services",
+            required: true
+          },
+          Resources: {
+            type: 'string',
+            default:"10001+"
+          },
+          Region: {
+            type: 'string',
+            default:"noida, uttar pradesh, india"
+          },
+          Country: {
+            type: 'string',
+            default:"india",
+            required: true
+          },
+          LinkedinUrl: {
+            type: 'string',
+            default:"linkedin.com/company/axl-technologies"
+          },
+          Services: {
+            type: 'string',
+            default:"Application Development, Mainframe Services",
+            required: true
+          }
+        },
+        form: [
+          {
+            key: "CompanyID",
+            type: "text"
+          },
+          {
+            key: "CompanyName",
+            type: "text"
+          },
+          {
+            key: "Category"
+          },
+          {
+            key: "Website",
+            type: "text"
+          },
+          {
+            key: "Year",
+            type: "text"
+          },
+          {
+            key: "Function",
+            type: "text"
+          },
+          {
+            key: "Resources",
+            type: "text"
+          },
+          {
+            key: "Region",
+            type: "text"
+          },
+          {
+            key: "Country",
+            type: "text"
+          },
+          {
+            key: "LinkedinUrl",
+            type: "text"
+          },
+          {
+            key: "Services",
+            type: "text"
+          },
+          {
+            type: "submit",
+            title: "Insert Supplier"
+          }
+        ],
+        onSubmit: function (errors, values) {
+          if (errors) {
+            $('#res').html('<p>Please fill required fields!</p>');
+          }
+          else {
+            console.log(values);
+            $('#exampleModal').modal('hide');
+            //create paramsObj
+            var paramsObj = {};
+            paramsObj.type = "MongodbData";
+            paramsObj.database = "Industry";
+            paramsObj.collection = "Suppliers";
+            paramsObj.queryType = "insert";
+            var record = {};
+            record.SupplierID = values.SupplierID;
+            record.SupplierName = values.SupplierName;
+            record.Category = values.Category;
+            record.Website = values.Website;
+            record.Year = values.Year;
+            record.Function = values.Function;
+            record.Resources = values.Resources;
+            record.Region = values.Region;
+            record.Country = values.Country;
+            record.LinkedinUrl = values.LinkedinUrl;
+            record.Services = values.Services;
+            paramsObj.record = record;
+             //call the api
+            let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(paramsObj);
+            fetch(url)
+              .then(response => response.text())
+              .then(data => {
+                alert(data);
+                var fetchObj = {};
+                fetchObj.type = "MongodbData";
+                fetchObj.database = "Industry";
+                fetchObj.collection = "Suppliers";
+                fetchObj.queryType = "read";
+                fetchObj.record = {};
+                 //call the api
+                let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(fetchObj);
+                fetch(url)
+                  .then(response => response.json())
+                  .then(data => {
+                    grid.dataSource = data;
+                    $('#feedbackGrid').show();
+
+
+                  })
+              })
+          }
+        }
+      });
+
+    }
+
+//Create handleUpdateFeedback function
+    handleUpdateFeedback = () => {
+      let updateFormEle = document.querySelector("#updateForm");
+      updateFormEle.style.display = updateFormEle.style.display == "none" ? "" : "none";
+    }
+//Create handleSearch function
+    handleSearch = () => {
+      let insertFormEle = document.querySelector("#searchForm");
+      insertFormEle.style.display = insertFormEle.style.display == "none" ? "" : "none";
+      $('#insertForm').hide();
+      $('#updateForm').hide();
+      $('#searchForm').html("");
+      let newUuid = uuidv4();
+      $('#searchForm').jsonForm({
+        //Create schema
+        schema: {
+          Category: {
+            type: 'string',
+            required: true,
+            title: 'Select Category',
+            enum: [
+              'Technology',
+              'Logistics',
+              'Retail',
+              'Construction',
+              'Training',
+              'Software',
+              'Consulting',
+              'Marketing'
+            ]
+          },
+          Search: {
+            type: 'string',
+            title: 'Search Keyword',
+          }
+        },
+        form: [
+          {
+            key: "Category"
+          },
+          {
+            key: "Search",
+            type: "text"
+          },
+          {
+            type: "submit",
+            title: "Search Supplier"
+          }
+        ],
+        onSubmit: function (errors, values) {
+          if (errors) {
+            $('#res').html('<p>Please fill required fields!</p>');
+          }
+          else {
+            console.log(values);
+            //create paramsObj
+            var paramsObj = {};
+            paramsObj.type = "MongodbData";
+            paramsObj.database = "Industry";
+            paramsObj.collection = "Suppliers";
+            paramsObj.queryType = "search";
+            //create record
+            var record = {};
+            record.Category = values.Category;
+            record.Search = values.Search;
+            paramsObj.record = record;
+             //call the api
+            let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(paramsObj);
+            fetch(url)
+              .then(response => response.json())
+              .then(data => {
+                grid.dataSource = data;
+                $('#feedbackGrid').show();
+                handleSearch();
+              })
+          }
+        }
+      });
+
+    }
+
+
+  </script>
+</body>
+
+</html>

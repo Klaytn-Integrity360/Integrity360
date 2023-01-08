@@ -1,0 +1,1311 @@
+﻿<style>
+    /*#globalc {
+            height: 500px !important;
+            width: 100% !important;
+        }
+    */
+
+    /*Set width and height for tabs id*/
+    #tabs {
+        width: 100%;
+        height: 30px;
+        /*border-bottom: solid 1px #CCC;
+            padding-right: 2px; */
+        margin-top: 30px;
+    }
+
+    /*set cursor point*/
+    a {
+        cursor: pointer;
+    }
+
+    /*Set css properties for list elements in tabs id*/
+    #tabs li {
+        float: left;
+        list-style: none;
+        border-top: 1px solid #ccc;
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        margin-right: 5px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        outline: none;
+    }
+
+    /*Set css properties for list in tabs id*/
+    #tabs li a {
+        font-family: Microsoft yahei;
+        font-size: small;
+        color: white;
+        padding-top: 5px;
+        padding-left: 7px;
+        padding-right: 7px;
+        padding-bottom: 8px;
+        display: block;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        text-decoration: none;
+        outline: none;
+    }
+
+    /*Set css properties for inactive elements in the list in tabs id*/
+    #tabs li a.inactive {
+        padding-top: 5px;
+        padding-bottom: 8px;
+        padding-left: 8px;
+        padding-right: 8px;
+        color: #666666;
+        background: #EEE;
+        outline: none;
+        border-bottom: solid 1px #CCC;
+    }
+
+
+    /*set background for tab1 id*/
+    #tab1 {
+        background: orange;
+    }
+
+     /*set background for tab1,tab2,tabe3,tab4,tab5 ids*/
+    #tab2,
+    #tab3,
+    #tab4,
+    #tab5 {
+        background: green;
+    }
+
+    /*Set color and outline properties for elements in list in tabs id when hovered*/
+    #tabs li a:hover {
+        color: white;
+        outline: none;
+    }
+
+     /*Set color and outline properties for inactive elements in list in tabs id when hovered*/
+    #tabs li a.inactive:hover {
+        color: #5685bc !important;
+        outline: none;
+    }
+
+     /*Set css properties for elements container class*/
+    .container {
+        clear: both;
+        width: 100%;
+        /*<!-- border-left: solid 1px #CCC; -->
+            <!-- border-right: solid 1px #CCC; -->
+            <!-- border-bottom: solid 1px #CCC; -->*/
+        text-align: left;
+        padding-top: 20px;
+        margin-left: 40px !important;
+    }
+
+    /*Set css properties for h2 elements container class*/
+    .container h2 {
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-bottom: 10px;
+        color: #5685bc;
+    }
+
+    /*Set css properties for p elements container class*/
+    .container p {
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        line-height: 1.3;
+        font-size: small;
+    }
+
+    /*Set css properties for elements in unordered list in container class*/
+    .container ul {
+        margin-left: 25px;
+        font-size: small;
+        line-height: 1.4;
+        list-style-type: disc;
+    }
+
+    /*Set css properties for elements in list in container class*/
+    .container li {
+        padding-bottom: 5px;
+        margin-left: 5px;
+    }
+</style>
+<style>
+
+    /*Set css properties for chart div id*/
+    #chartdiv {
+        width: 100%;
+        height: 450px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        overflow: hidden;
+    }
+
+    /*Set css properties for button class*/
+    .button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    /*Set css properties for elements in radiocust class*/
+    .radiocust {
+        margin-left: 10px;
+        margin-right: 20px;
+        margin-top: -6px;
+        color: crimson;
+    }
+
+    /*Set css properties for elements carousel-inner class and child elements*/
+    .carousel-inner>.item>img,
+    .carousel-inner>.item>a>img {
+        width: 70%;
+        margin: auto;
+    }
+
+    /*Set css properties for elements in navbar-inverse class*/
+    .navbar-inverse {
+        border-color: white !important;
+    }
+</style>
+<style>
+    /*Set css properties for elements in text-nicelabel class and the elements that are placed immediately after the element*/
+    .text-nicelabel+label {
+        font: 13px "Microsoft Yahei";
+        /*display: table;*/
+        font-size: 11px;
+        margin-right: 10px;
+        padding: 10px 20px 10px 10px;
+        background-color: rgba(0, 140, 186, 1);
+        color: #b3b3b3;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.2s;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+    }
+/*Set css properties for elements in text-nicelabel class and the elements that are placed immediately after the element and its child elements*/
+    .text-nicelabel+label>span.nicelabel-unchecked,
+    .text-nicelabel+label>span.nicelabel-checked {
+        display: inline-block;
+        line-height: 16px;
+        margin-left: 7px;
+        vertical-align: bottom;
+        font-size: small;
+    }
+/*Set css properties for elements in text-nicelabel class and the elements that are placed immediately after the element and its child elements*/
+    .text-nicelabel+label>span.nicelabel-unchecked-image,
+    .text-nicelabel+label>span.nicelabel-checked-image {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        vertical-align: bottom;
+        background-repeat: no-repeat;
+        background-position: left center;
+        transition: all 0.2s linear;
+        -webkit-transition: all 0.2s linear;
+    }
+
+    /*Set css properties for elements in text-nicelabel class and the elements that are placed immediately after the element and its child elements*/
+    .text-nicelabel:not(:checked)+label {
+        background-color: darkblue;
+        color: white;
+    }
+
+    /*Set css properties for elements in text-nicelabel class and the checked-img elements that are placed immediately after the element and its child elements*/
+    .text-nicelabel:not(:checked)+label>span.nicelabel-checked-image {
+        display: none;
+    }
+
+/*Set css properties for elements in text-nicelabel class and the checked elements that are placed immediately after the element and its child elements*/ 
+    .text-nicelabel:not(:checked)+label>span.nicelabel-checked {
+        display: none;
+    }
+
+/*Set css properties for elements in text-nicelabel class and its child elements*/    
+    .text-nicelabel:checked+label {
+        background-color: blueviolet;
+        /*rgba(0,140,186,1);*/
+        color: #fff;
+    }
+/*Set css properties for elements in text-nicelabel class and the elements that are placed immediately after the element and its child elements*/
+    .text-nicelabel:checked+label>span.nicelabel-unchecked-image {
+        display: none;
+    }
+/*Set css properties for elements in text-nicelabel class and the elements that are placed immediately after the element and its child elements*/
+    .text-nicelabel:checked+label>span.nicelabel-unchecked {
+        display: none;
+    }
+/*Set css properties for disabled elements in text-nicelabel class and the elements that are placed immediately after the element*/
+    .text-nicelabel[disabled]+label {
+        opacity: 0.5;
+    }
+</style>
+<title>Integrity360 - Compliance Dashboard</title>
+ <!--
+  year:    2022 
+  Languages: Javascript, HTML, CSS
+  
+  Description: This page helps the user to find the DEI compliant company's location.
+
+ Helios by HTML5 UP
+ html5up.net | @ajlkn
+ Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+ <!--Link the required stylesheets to DEIComplianceDashboard-->
+<script src="https://apis.google.com/js/client.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+<!--<link href="~/App_Data/nicelabel/css/jquery-nicelabel.css" rel="stylesheet">-->
+<!--<script src="~/App_Data//nicelabel/js/jquery.nicelabel.js"></script>-->
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/maps.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/plugins/forceDirected.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/geodata/worldLow.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/geodata/data/countries2.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/dataviz.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/material.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/kelly.js"></script>
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"
+    type="text/css" />
+
+
+
+<!-- HTML-->
+<!--
+  year:    2022 
+  Languages: Javascript, HTML, CSS
+  Function   : getAccountDetailsInformation, deactivateAccount, activateAccount, deleteAccount.
+  
+  Description:  User can use this page to get 
+                account details, Deactivate, Activate, Delete Account.
+
+ 
+-->
+<body style="overflow: hidden;">
+    <div class="navbar navbar-inverse navbar-fixed-top laynavbar"
+        style="color:white;background-color:white;height:10px !important">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="index.html" class="navbar-brand"><img src="images/KlaytnLogo.png" style="height:50px;width:100%" /></a>
+            
+            <!--<div class="navbar-text" style="margin-left:-69px;margin-right:-17px;margin-top:20px;">
+                <label>Choose Feature(s) :</label>
+                <label style="margin-top:-7px;font-weight:normal;font-style:italic;font-size:smaller">click to select/deselect</label>
+            </div>-->
+
+        </div>
+
+        <div class="navbar-collapse collapse" id="bs-navbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" onclick="abouticonclick(this)"
+                        style="color:steelblue;margin-right: 120px;margin-top: 30px;" title="About"
+                        class="glyphicon glyphicon-info-sign"></a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <br /><br />
+    <div style="margin-top:20px">
+
+        <!--<div id="dyncheckbox" style="margin-left: 10px;">
+
+        </div><button id="selectcheckbox" class="button" style="position:absolute;right:42px;margin-top:-42px;line-height:7px;">SelectAll</button>
+        <div id="drpdwn" style="display:none;margin-left: 10px;">
+            <select id="subfeat" multiple="multiple" style="width:270px;height:32px"></select>
+            <button id="subfeatselect" class="btn btn-default"><img style="height:17px" src="Images/TickMark.png" /></button> &nbsp;&nbsp;
+        </div>-->
+        <div class="row" style="text-align: center;">
+            <span style="font-weight: bold; font-size: medium;">Sample data populated for multiple companies (Search for 'zydus' in text below and Icon will appear over India in few seconds for Analytics) </span><br />
+        </div>
+        <br>
+        <div class="row" style="margin-left:200px;">
+            <div class="col-md-12">
+                <input type="text" id="srchtxt" style="width:80%" placeholder="Enter company name to search: (ex.zydus)" />
+                <button id="srchclick" style="margin-left:-64px">Search</button>
+                <!-- <button onclick="auth()">Authorize</button> -->
+            </div>
+
+        </div>
+    </div>
+
+
+    <div id="chartdiv"></div>
+    <br />
+    <div class="row" style="margin-left:50px;margin-top:-20px;width:90%" id="descriptionimg">
+
+    </div>
+    <div align="left">
+        <button type="button" id="btnclick" data-toggle="modal" style="display:none" data-target="#myModal"></button>
+    </div>
+    <div class="modal fade" id="myModal" role="dialog" style="margin-left:-570px !important">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content" style="height:600px;width:1200px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="mheader"></h4>
+                </div>
+                <div class="modal-body">
+
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                            <li data-target="#myCarousel" data-slide-to="3"></li>
+                        </ol>
+
+                        <div class="carousel-inner" role="listbox">
+
+                            <div class="item active">
+                                <img src="img_chania.jpg" alt="Chania" width="460" height="345">
+                                <div class="carousel-caption">
+                                    <h3>Chania</h3>
+                                    <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img src="img_chania2.jpg" alt="Chania" width="460" height="345">
+                                <div class="carousel-caption">
+                                    <h3>Chania</h3>
+                                    <p>The atmosphere in Chania has a touch of Florence and Venice.</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <div style="position:absolute;right:19px;bottom:65px">
+                    <!--class="modal-footer"-->
+
+                    <select id="links" style="width:270px;height:32px"></select>
+                    <button id="Gobtn" class="btn btn-default">Go</button> &nbsp;&nbsp;
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <button type="button" id="aboutclick" data-toggle="modal" style="display:none" data-target="#aboutModal"></button>
+    <div class="modal fade" id="aboutModal" style="margin-left:-570px !important" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content" style="height:600px;width:1200px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Welcome to Integrity 360</h4>
+                </div>
+                <div class="modal-body">
+                    <div align="center">
+                        <img src="images/KlaytnAPI.jpg" style="height:450px;width:80%" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div align="left">
+        <button type="button" id="cntrybtnclick" data-toggle="modal" style="display:none"
+            data-target="#countryModal"></button>
+    </div>
+    <div class="modal fade" id="countryModal" role="dialog" style="margin-left:-570px !important;margin-top:-25px;">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content" style="height:620px;width:1200px">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="mcntryheader"></h4>
+                </div>
+                <div class="modal-body">
+                    <div align="center" style="overflow:hidden;margin-top:-34px">
+                        <ul id="tabs" style="margin-left: -34px ">
+
+                            <li>
+                                <a id="tab2">Diversity Metrics</a>
+                            </li>
+                            <li>
+                                <a id="tab3">Equity Metrics</a>
+                            </li>
+                            <li>
+                                <a id="tab4">Inclusivity Metrics</a>
+                            </li>
+                            <li>
+                                <a id="tab1" style="font-weight:bold">Industries they work on</a>
+                            </li>
+                        </ul>
+
+                        <div class="container" style="width: 1100px; padding-left: 0px;height:400px;" id="tab3C">
+                            <div class="row">
+                                <div style="width: 49%; float: left; text-align: center">
+                                    <span>Male/Female/Others Ratio:</span><br />
+                                    <span>Highlights: <b>Zydus has an 36% female workforces</b></span><br />
+                                </div>
+                                <div style="width: 49%; float: right; text-align: center">
+                                    <span>Ethnicity Spread:</span><br />
+                                    <span>Highlights: <b>73% of Zydus vendors are Indo-Aryans</b></span><br />
+                                </div>
+                            </div>
+                            <div style="height:450px;width:49%;float:left">
+                                <div id="equalityc1"></div>
+                            </div>
+                            <div style="height:450px;width:49%;float:right">
+                                <div id="equalityc2"></div>
+                            </div>
+
+                        </div>
+                        <div class="container" style="width: 1100px; padding-left: 0px;" id="tab2C">
+                            <div class="row" style="text-align:center">
+                                <span>Zydus has the following proportions and numbers in their diversity</span><br />
+                                <span>Highlights: <b>70% of their vendors/employees are Graduates and 10% are children
+                                        caretakers</b></span><br />
+                            </div>
+                            <div style="height:450px;width:80%;float:left">
+                                <div id="diversitychart"></div>
+                            </div>
+
+                        </div>
+                        <div class="container" style="width: 1100px; padding-left: 0px;" id="tab4C">
+                            <div class="row">
+                                <div style="width: 49%; float: left; text-align: center">
+                                    <span>Religion Spread:</span><br />
+                                    <span>Highlights: <b>76% are Hindus with next being Christians and
+                                            Muslims</b></span><br />
+                                </div>
+                                <div style="width: 49%; float: right; text-align: center">
+                                    <span>Language Spread:</span><br />
+                                    <span>Highlights: <b>75% of vendors speak Hindi</b></span><br />
+                                </div>
+                            </div>
+                            <div style="height:450px;width:49%;float:left">
+                                <div id="inclusivityc1"></div>
+                            </div>
+                            <div style="height:450px;width:49%;float:right">
+                                <div id="inclusivityc2"></div>
+                            </div>
+                        </div>
+                        <div class="container" style="width: 1100px; padding-left: 0px;height:400px;" id="tab1C">
+                            <div style="height:450px;width:80%;float:left">
+                                <div id="industrychart"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!--<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>-->
+            </div>
+
+        </div>
+    </div>
+    <br>
+    <br><br>
+
+    <div class="row">
+      <div class="col-12" align="center">
+
+        <!-- Contact -->
+          <section class="contact">
+            <header>
+                <b>Looking for Deploying Integrity360 to your Organization/Government</b>
+                <br><i>Integrity360 is a zero deployment package just requiring a cloud web space and Klaytn Account.</i>
+            </header>
+            
+          </section>
+
+        <!-- Copyright -->
+          <div class="copyright">
+            <ul class="menu">
+              <li>&copy; Integrity360. All rights reserved.</li>
+            </ul>
+          </div>
+
+      </div>
+
+</body>
+
+
+<!-- Chart code -->
+<script>
+
+    var result; var bqrequest; var industrychartdata = []; var primaryeduchartdata = [];
+    var racialchartdata = []; var genderchartdata = []; var diversitychartdata = []; var religionchartdata = []; var langchartdata = [];
+    var imageSeries; var jsondata; var imageSeriesTemplate; var marker; var pointsloc; var title; var colorSet; var subfeatures;
+    var url = "https://raw.githubusercontent.com/bdevika948/HeroWorks/main/Harmony360.json";
+    //var url = "Sentient360-Landing.json";// "/HeroWorks360_LandingApps.json";
+    var mainurl = "https://raw.githubusercontent.com/bdevika948/HeroWorks/main/";
+    //"https://raw.githubusercontent.com/sparkexpedition1/Sentient360-Landing/main/";
+    $.ajax({
+        dataType: "json",
+        url: url,
+        type: 'GET',
+        async: false,
+        success: function (res) {
+            debugger
+            jsondata = res;
+            pointsloc = jsondata.Points;
+        },
+        error: function (res) { }
+    });
+    // User Submitted Variables
+    var project_id = 'poc-grat360-oht19978u4-114986';
+    var client_id = '420669423590-897j9fs48ndj9s69bu0clvs7optb6ghj.apps.googleusercontent.com';
+
+    var config = {
+        'client_id': client_id,
+        'scope': "https://www.googleapis.com/auth/bigquery",
+        immediate: true
+    };
+    function auth() {
+
+        gapi.auth.authorize(config, function () {
+            gapi.client.setApiKey('AIzaSyBXPaN_YQb8wUfxH7UxZ23I2yFjNmMNLoA');
+            gapi.client.load('bigquery', 'v2');
+        });
+    }
+    abouticonclick = function (e) {
+        debugger
+        $("#aboutclick").click();
+    }
+    var delay = (function () {
+        var timer = 0;
+        return function (callback, ms) {
+            clearTimeout(timer);
+            timer = setTimeout(callback, ms);
+        };
+    })();
+    $("#srchclick").click(function () {
+        debugger
+        seriesdata = [];
+        auth();
+        delay(function () {
+            var cntquery = "SELECT Count(1) as count FROM `poc-grat360-oht19978u4-114986.Reflect360.Company` Where CompanyName like '%" + $("#srchtxt").val() + "%'";
+            var request = gapi.client.bigquery.jobs.query({
+                'projectId': project_id,
+                'timeoutMs': '30000',
+                'query': "WITH MyTable AS (" + cntquery + ") SELECT TO_JSON_STRING(t) AS json FROM MyTable AS t;",
+                'useLegacySql': false,
+                "prettyPrint": true
+            });
+            request.execute(function (response) {
+                debugger
+                result = response.result.rows;
+                var resquery = "SELECT CompanyID,CompanyName,Lattitude,Longitude FROM `poc-grat360-oht19978u4-114986.Reflect360.Company` Where CompanyName like '%" + $("#srchtxt").val() + "%'";
+                if (JSON.parse(result[0].f[0].v).count < 8) {
+                    var bqtrequest = gapi.client.bigquery.jobs.query({
+                        'projectId': project_id,
+                        'timeoutMs': '30000',
+                        'query': "WITH MyTable AS (" + resquery + ") SELECT TO_JSON_STRING(t) AS json FROM MyTable AS t;",
+                        'useLegacySql': false,
+                        "prettyPrint": true
+                    });
+                    bqtrequest.execute(function (bqtresponse) {
+                        debugger
+                        result = bqtresponse.result.rows;
+                        //result=JSON.parse(result[0].f);
+                        var colorSet = new am4core.ColorSet();
+                        jQuery.grep(result, function (ele) {
+                            debugger
+                            var point = JSON.parse(ele.f[0].v);
+                            seriesdata.push({
+                                "title": point.CompanyName, "latitude": point.Lattitude, "longitude": point.Longitude, "flag": "industryicon.png", "color": colorSet.next()
+                            });
+                        });
+                        imageSeries.data = seriesdata;
+                    });
+                }
+                else {
+                    alert("Exceeded Count");
+                }
+            });
+        }, 4000)
+
+    });
+    $("#Gobtn").click(function () {
+        window.open($("#links").val(), "_blank");
+    });
+    am4core.ready(function () {
+
+        var continents = {
+            "AF": 0,
+            "AN": 1,
+            "AS": 2,
+            "EU": 3,
+            "NA": 4,
+            "OC": 5,
+            "SA": 6
+        };
+        var colors = [
+            "Low:#f7fca9",
+            "Medium:#f5f576",
+            "High:#f2c335",
+            "Very High:#fcc9a7",
+            "Critical:#fc3932"
+        ];
+        var countries = [
+            'India', 'Vietnam', 'Bangladesh', 'Bhutan', 'Indonesia', 'Thailand', 'Kenya', 'Madagascar', 'Malawi', 'Algeria', 'Egypt', 'Mozambique', 'cuba', 'Mexico', 'peru', 'Brazil', 'Ecuador', 'San Marino', 'Andorra', 'Montenegro', 'Liechtenstein', 'Monaco', 'Moldova'
+        ]
+        // Create chart instance
+        var chart = am4core.create("chartdiv", am4maps.MapChart);
+        chart.projection = new am4maps.projections.Miller();
+        chart.geodata = am4geodata_worldLow;
+        var worldSeries = chart.series.push(new am4maps.MapPolygonSeries());
+        worldSeries.useGeodata = true;
+        //worldSeries.geodata = am4geodata_worldLow;
+        worldSeries.exclude = ["AQ"];
+
+        var worldPolygon = worldSeries.mapPolygons.template;
+        //worldPolygon.tooltipText = "{name}";
+        //worldPolygon.polygon.fillOpacity = 0.6;
+        worldPolygon.tooltipText = "{name}";
+        worldPolygon.nonScalingStroke = true;
+        worldPolygon.strokeOpacity = 0.5;
+        worldPolygon.fill = am4core.color("#eee");
+        worldPolygon.propertyFields.fill = "color";
+
+        var hs = worldPolygon.states.create("hover");
+        hs.properties.fill = chart.colors.getIndex(0);
+
+
+        // Create country specific series (but hide it for now)
+        var countrySeries = chart.series.push(new am4maps.MapPolygonSeries());
+        countrySeries.useGeodata = true;
+        countrySeries.hide();
+        countrySeries.geodataSource.events.on("done", function (ev) {
+            worldSeries.hide();
+            countrySeries.show();
+        });
+
+        var countryPolygon = countrySeries.mapPolygons.template;
+        countryPolygon.tooltipText = "{name}";
+        countryPolygon.nonScalingStroke = true;
+        countryPolygon.strokeOpacity = 0.5;
+        countryPolygon.fill = am4core.color("#eee");
+
+        //Add hover
+        var hs = countryPolygon.states.create("hover");
+        hs.properties.fill = chart.colors.getIndex(9);
+
+        debugger
+        Array.prototype.random = function () {
+            return this[Math.floor((Math.random() * this.length))];
+        }
+        // Set up data for countries
+        var data = [];
+        for (var id in am4geodata_data_countries2) {
+            if (am4geodata_data_countries2.hasOwnProperty(id)) {
+                var country = am4geodata_data_countries2[id];
+                if (country.maps.length) {
+                    debugger
+                    var req = countries.filter(x => x == country.country);
+                    if (req.length > 0) {
+                        data.push({
+                            id: id,
+                            color: am4core.color("#f2c335"),
+                            map: country.maps[0]
+                        });
+                    }
+                    else {
+                        data.push({
+                            id: id,
+                            color: am4core.color("#f2f2f0"),
+                            map: country.maps[0]
+                        });
+                    }
+
+                }
+            }
+        }
+
+         // Add data
+        worldSeries.data = data;
+
+        // Configure series
+        var polygonTemplate = worldSeries.mapPolygons.template;
+        polygonTemplate.tooltipText = "{name}";
+        polygonTemplate.polygon.fillOpacity = 0.6;
+
+
+        // Create hover state and set alternative fill color
+        var hs = polygonTemplate.states.create("hover");
+        hs.properties.fill = chart.colors.getIndex(0);
+
+
+        // Create image series
+        imageSeries = chart.series.push(new am4maps.MapImageSeries());
+        imageSeriesTemplate = imageSeries.mapImages.template;
+        marker = imageSeriesTemplate.createChild(am4core.Image);
+        marker.width = 40;
+        marker.height = 40;
+        marker.nonScaling = true;
+        marker.tooltipText = "{title}";
+        marker.horizontalCenter = "middle";
+        marker.verticalCenter = "bottom";
+        marker.propertyFields.href = "flag";
+        marker.propertyFields.fill = "color";
+
+        var circle2 = imageSeries.mapImages.template.createChild(am4core.Circle);
+        circle2.radius = 3;
+        circle2.propertyFields.fill = "color";
+        circle2.events.on("inited", function (event) {
+            animateBullet(event.target);
+        })
+
+
+        //Add animation to bullets
+        function animateBullet(marker) {
+            var animation = marker.animate([{ property: "scale", from: 1 / chart.zoomLevel, to: 3 / chart.zoomLevel }, { property: "opacity", from: 1, to: 0 }], 1000, am4core.ease.circleOut);
+            animation.events.on("animationended", function (event) {
+                animateBullet(event.target.object);
+            })
+        }
+        imageSeriesTemplate.propertyFields.latitude = "latitude";
+        imageSeriesTemplate.propertyFields.longitude = "longitude";
+
+        imageSeriesTemplate.events.on("hit", function (ev) {
+            debugger
+            industrychartdata = []; primaryeduchartdata = []; racialchartdata = []; genderchartdata = []; diversitychartdata = [];
+            religionchartdata = []; langchartdata = [];
+            title = ev.target._dataItem._dataContext.title;
+            var cmpnyname = $("#srchtxt").val();
+            //Create and execute industry request query
+            var cntquery = "SELECT A.Industry as industry,COUNT(A.Name) as count FROM `poc-grat360-oht19978u4-114986.Reflect360.Vendor` A,`poc-grat360-oht19978u4-114986.Reflect360.VendorJobHistory` H,`poc-grat360-oht19978u4-114986.Reflect360.Company` C WHERE A.VendorID=H.VendorID AND H.CompanyID=C.CompanyID AND C.CompanyName like '%" + cmpnyname + "%' GROUP BY A.Industry ORDER BY count desc LIMIT 5";
+            $("#cntrybtnclick").click();
+            $("#mcntryheader").html("Industry and DEI metrics of company " + title);
+            var indrequest = gapi.client.bigquery.jobs.query({
+                'projectId': project_id,
+                'timeoutMs': '30000',
+                'query': "WITH MyTable AS (" + cntquery + ") SELECT TO_JSON_STRING(t) AS json FROM MyTable AS t;",
+                'useLegacySql': false,
+                "prettyPrint": true
+            });
+            indrequest.execute(function (response) {
+                debugger
+                var indresult = response.result.rows;
+                jQuery.grep(indresult, function (indstry) {
+                    var ind = JSON.parse(indstry.f[0].v);
+                    industrychartdata.push({
+                        "industry": ind.industry, "count": ind.count
+                    });
+                });
+                industryamchart();
+            });
+            //Create and execute racial query
+            var racialqry = "SELECT A.RacialEthnicIdentity as RacialEthnicIdentity,COUNT(A.Name) as count FROM `poc-grat360-oht19978u4-114986.Reflect360.Vendor` A,`poc-grat360-oht19978u4-114986.Reflect360.VendorJobHistory` H, `poc-grat360-oht19978u4-114986.Reflect360.Company` C WHERE A.VendorID=H.VendorID AND H.CompanyID=C.CompanyID AND C.CompanyName like '%" + cmpnyname + "%' GROUP BY A.RacialEthnicIdentity";
+            var racialrequest = gapi.client.bigquery.jobs.query({
+                'projectId': project_id,
+                'timeoutMs': '30000',
+                'query': "WITH MyTable AS (" + racialqry + ") SELECT TO_JSON_STRING(t) AS json FROM MyTable AS t;",
+                'useLegacySql': false,
+                "prettyPrint": true
+            });
+            racialrequest.execute(function (response) {
+                debugger
+                var racialresult = response.result.rows;
+                jQuery.grep(racialresult, function (racial) {
+                    var rac = JSON.parse(racial.f[0].v);
+                    racialchartdata.push({
+                        "RacialEthnicIdentity": rac.RacialEthnicIdentity, "count": rac.count
+                    });
+                });
+                racialamchart();
+            });
+
+            //Create and execute gender query
+            var genderqry = "SELECT A.Gender_ as Gender,COUNT(A.Name) as count FROM `poc-grat360-oht19978u4-114986.Reflect360.Vendor` A,`poc-grat360-oht19978u4-114986.Reflect360.VendorJobHistory` H, `poc-grat360-oht19978u4-114986.Reflect360.Company` C WHERE A.VendorID=H.VendorID AND H.CompanyID=C.CompanyID AND C.CompanyName like '%" + cmpnyname + "%' GROUP BY A.Gender_";
+            var genderrequest = gapi.client.bigquery.jobs.query({
+                'projectId': project_id,
+                'timeoutMs': '30000',
+                'query': "WITH MyTable AS (" + genderqry + ") SELECT TO_JSON_STRING(t) AS json FROM MyTable AS t;",
+                'useLegacySql': false,
+                "prettyPrint": true
+            });
+            genderrequest.execute(function (response) {
+                debugger
+                var genderresult = response.result.rows;
+                jQuery.grep(genderresult, function (gender) {
+                    var gend = JSON.parse(gender.f[0].v);
+                    if (gend.Gender == "Female") {
+                        genderchartdata.push({
+                            "gender": gend.Gender, "count": gend.count, "color": "#E91E63", "bullet": "img/FemaleIcon.jpg"
+                        });
+                    }
+                    else if (gend.Gender == "Male") {
+                        genderchartdata.push({
+                            "gender": gend.Gender, "count": gend.count, "color": "#F44336", "bullet": "https://www.amcharts.com/lib/images/faces/E01.png"
+                        });
+                    }
+                    else {
+                        genderchartdata.push({
+                            "gender": gend.Gender, "count": gend.count, "color": "#9C27B0", "bullet": "https://www.amcharts.com/lib/images/faces/E01.png"
+                        });
+                    }
+
+                });
+                genderamchart();
+            });
+
+            //Create and execute diversity query
+            var diversityqry = "SELECT 'Transgender' AS Diversity, COUNT(A.IsTransgender) AS count FROM `poc-grat360-oht19978u4-114986.Reflect360.Vendor` A, `poc-grat360-oht19978u4-114986.Reflect360.VendorJobHistory` H,`poc-grat360-oht19978u4-114986.Reflect360.Company` C WHERE A.VendorID=H.VendorID AND H.CompanyID=C.CompanyID AND C.CompanyName like '%" + cmpnyname + "%' AND A.IsTransgender =1 UNION ALL SELECT 'Disability' AS Diversity, COUNT(A.IsDisability) AS count FROM `poc-grat360-oht19978u4-114986.Reflect360.Vendor` A, `poc-grat360-oht19978u4-114986.Reflect360.VendorJobHistory` H,`poc-grat360-oht19978u4-114986.Reflect360.Company` C WHERE A.VendorID=H.VendorID AND H.CompanyID=C.CompanyID AND C.CompanyName like '%" + cmpnyname + "%' AND A.IsDisability =1 UNION ALL SELECT 'EnglishFirstLanguage' AS Diversity, COUNT(A.IsEnglishFirstLanguage) AS count FROM `poc-grat360-oht19978u4-114986.Reflect360.Vendor` A, `poc-grat360-oht19978u4-114986.Reflect360.VendorJobHistory` H, `poc-grat360-oht19978u4-114986.Reflect360.Company` C WHERE A.VendorID=H.VendorID AND H.CompanyID=C.CompanyID AND C.CompanyName like '%" + cmpnyname + "%' AND A.IsEnglishFirstLanguage =1 UNION ALL SELECT 'ChildrenCaretaker' AS Diversity, COUNT(A.IsChildrenCaretaker) AS count FROM `poc-grat360-oht19978u4-114986.Reflect360.Vendor` A, `poc-grat360-oht19978u4-114986.Reflect360.VendorJobHistory` H,`poc-grat360-oht19978u4-114986.Reflect360.Company` C WHERE A.VendorID=H.VendorID AND H.CompanyID=C.CompanyID AND C.CompanyName like '%" + cmpnyname + "%' AND A.IsChildrenCaretaker =1 UNION ALL SELECT 'CollegeGraduate' AS Diversity, COUNT(A.IsCollegeGraduate) AS count FROM `poc-grat360-oht19978u4-114986.Reflect360.Vendor` A,  `poc-grat360-oht19978u4-114986.Reflect360.VendorJobHistory` H,  `poc-grat360-oht19978u4-114986.Reflect360.Company` C WHERE A.VendorID=H.VendorID AND H.CompanyID=C.CompanyID AND C.CompanyName like '%" + cmpnyname + "%' AND A.IsCollegeGraduate =1 UNION ALL SELECT 'ArmedForces' AS Diversity, COUNT(A.IsArmedForces) AS count FROM `poc-grat360-oht19978u4-114986.Reflect360.Vendor` A,  `poc-grat360-oht19978u4-114986.Reflect360.VendorJobHistory` H,  `poc-grat360-oht19978u4-114986.Reflect360.Company` C WHERE A.VendorID=H.VendorID AND H.CompanyID=C.CompanyID AND C.CompanyName like '%" + cmpnyname + "%' AND A.IsArmedForces =1 UNION ALL SELECT 'STEMStatus' AS Diversity, COUNT(A.IsSTEMStatus) AS count FROM `poc-grat360-oht19978u4-114986.Reflect360.Vendor` A,  `poc-grat360-oht19978u4-114986.Reflect360.VendorJobHistory` H,  `poc-grat360-oht19978u4-114986.Reflect360.Company` C WHERE A.VendorID=H.VendorID AND H.CompanyID=C.CompanyID AND C.CompanyName like '%" + cmpnyname + "%' AND A.IsSTEMStatus =1";
+            var diversityrequest = gapi.client.bigquery.jobs.query({
+                'projectId': project_id,
+                'timeoutMs': '30000',
+                'query': "WITH MyTable AS (" + diversityqry + ") SELECT TO_JSON_STRING(t) AS json FROM MyTable AS t;",
+                'useLegacySql': false,
+                "prettyPrint": true
+            });
+            diversityrequest.execute(function (response) {
+                debugger
+                var diversityresult = response.result.rows;
+                jQuery.grep(diversityresult, function (diversity) {
+                    var diverse = JSON.parse(diversity.f[0].v);
+                    diversitychartdata.push({
+                        "diversity": diverse.Diversity, "count": diverse.count
+                    });
+                });
+                diversityamchart();
+            });
+
+            //Create and execute religion query
+            var religionqry = "SELECT A.Religion as Religion,COUNT(A.Name) as count FROM `poc-grat360-oht19978u4-114986.Reflect360.Vendor` A,`poc-grat360-oht19978u4-114986.Reflect360.VendorJobHistory` H, `poc-grat360-oht19978u4-114986.Reflect360.Company` C WHERE A.VendorID=H.VendorID AND H.CompanyID=C.CompanyID AND C.CompanyName like '%" + cmpnyname + "%' GROUP BY A.Religion";
+            var religionrequest = gapi.client.bigquery.jobs.query({
+                'projectId': project_id,
+                'timeoutMs': '30000',
+                'query': "WITH MyTable AS (" + religionqry + ") SELECT TO_JSON_STRING(t) AS json FROM MyTable AS t;",
+                'useLegacySql': false,
+                "prettyPrint": true
+            });
+            religionrequest.execute(function (response) {
+                debugger
+                var religionresult = response.result.rows;
+                jQuery.grep(religionresult, function (religion) {
+                    var relig = JSON.parse(religion.f[0].v);
+                    religionchartdata.push({
+                        "religion": relig.Religion, "count": relig.count
+                    });
+                });
+                religionamchart();
+            });
+
+            //Create and execute language query
+            var languageqry = "SELECT A.Languages as Language,COUNT(A.Name) as count FROM `poc-grat360-oht19978u4-114986.Reflect360.Vendor` A,`poc-grat360-oht19978u4-114986.Reflect360.VendorJobHistory` H, `poc-grat360-oht19978u4-114986.Reflect360.Company` C WHERE A.VendorID=H.VendorID AND H.CompanyID=C.CompanyID AND C.CompanyName like '%" + cmpnyname + "%' GROUP BY A.Languages";
+            var languagerequest = gapi.client.bigquery.jobs.query({
+                'projectId': project_id,
+                'timeoutMs': '30000',
+                'query': "WITH MyTable AS (" + languageqry + ") SELECT TO_JSON_STRING(t) AS json FROM MyTable AS t;",
+                'useLegacySql': false,
+                "prettyPrint": true
+            });
+            languagerequest.execute(function (response) {
+                debugger
+                var languageresult = response.result.rows;
+                jQuery.grep(languageresult, function (language) {
+                    var lang = JSON.parse(language.f[0].v);
+                    langchartdata.push({
+                        "language": lang.Language, "count": lang.count
+                    });
+                });
+                langamchart();
+            });
+        });
+
+        //area chart
+        var areachart = am4core.create("areachartdiv", am4charts.XYChart);
+        var areacategoryAxis = areachart.xAxes.push(new am4charts.CategoryAxis());
+        areacategoryAxis.renderer.grid.template.location = 0;
+        areacategoryAxis.renderer.ticks.template.disabled = true;
+        areacategoryAxis.renderer.line.opacity = 0;
+        areacategoryAxis.renderer.grid.template.disabled = true;
+        areacategoryAxis.renderer.minGridDistance = 40;
+        areacategoryAxis.dataFields.category = "year";
+        areacategoryAxis.startLocation = 0.4;
+        areacategoryAxis.endLocation = 0.6;
+
+        // Create axes
+        var areavalueAxis = areachart.yAxes.push(new am4charts.ValueAxis());
+        areavalueAxis.tooltip.disabled = true;
+        areavalueAxis.renderer.line.opacity = 0;
+        areavalueAxis.renderer.ticks.template.disabled = true;
+        areavalueAxis.min = 0;
+
+        // Create series
+        var arealineSeries = areachart.series.push(new am4charts.LineSeries());
+        arealineSeries.dataFields.categoryX = "year";
+        arealineSeries.dataFields.valueY = "income";
+        arealineSeries.tooltipText = "income: {valueY.value}";
+        arealineSeries.fillOpacity = 0.5;
+        arealineSeries.strokeWidth = 3;
+        arealineSeries.propertyFields.stroke = "lineColor";
+        arealineSeries.propertyFields.fill = "lineColor";
+
+        // Add bullets
+        var bullet = arealineSeries.bullets.push(new am4charts.CircleBullet());
+        bullet.circle.radius = 6;
+        bullet.circle.fill = am4core.color("#fff");
+        bullet.circle.strokeWidth = 3;
+
+        //Add cursor
+        areachart.cursor = new am4charts.XYCursor();
+        areachart.cursor.behavior = "panX";
+        areachart.cursor.lineX.opacity = 0;
+        areachart.cursor.lineY.opacity = 0;
+
+    }); // end am4core.ready()
+    $(document).ready(function () {
+        $('#tabs li a:not(:first)').addClass('inactive');
+        $('.container').hide();
+        $('.container:first').show();
+        $('#tabs li a').click(function () {
+            var t = $(this).attr('id');
+            if ($(this).hasClass('inactive')) { //this is the start of our condition
+                $('#tabs li a').addClass('inactive');
+                $(this).removeClass('inactive');
+                $('.container').hide();
+                $('#' + t + 'C').fadeIn('slow');
+            }
+
+        });
+    });
+
+    //Funtion to run the query
+    function runQuery(qry) {
+        debugger
+        bqrequest = gapi.client.bigquery.jobs.query({
+            'projectId': project_id,
+            'timeoutMs': '30000',
+            'query': "WITH MyTable AS (" + qry + ") SELECT TO_JSON_STRING(t) AS json FROM MyTable AS t;",
+            'useLegacySql': false,
+            "prettyPrint": true
+        });
+    }
+
+    //Create industry chart
+    function industryamchart() {
+        // Themes begin
+        am4core.useTheme(am4themes_animated);
+        // Themes end
+
+        // Create chart instance
+        var chart = am4core.create("industrychart", am4charts.XYChart);
+        chart.scrollbarX = new am4core.Scrollbar();
+
+        // Add data
+        chart.data = industrychartdata;
+
+        // Create axes
+        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.dataFields.category = "industry";
+        categoryAxis.renderer.grid.template.location = 0;
+        categoryAxis.renderer.minGridDistance = 30;
+        categoryAxis.renderer.labels.template.horizontalCenter = "right";
+        categoryAxis.renderer.labels.template.verticalCenter = "middle";
+        categoryAxis.renderer.labels.template.rotation = 270;
+        categoryAxis.tooltip.disabled = true;
+        categoryAxis.renderer.minHeight = 110;
+
+        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.renderer.minWidth = 50;
+
+        // Create series
+        var series = chart.series.push(new am4charts.ColumnSeries());
+        series.sequencedInterpolation = true;
+        series.dataFields.valueY = "count";
+        series.dataFields.categoryX = "industry";
+        series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
+        series.columns.template.strokeWidth = 0;
+
+        series.tooltip.pointerOrientation = "vertical";
+
+        series.columns.template.column.cornerRadiusTopLeft = 10;
+        series.columns.template.column.cornerRadiusTopRight = 10;
+        series.columns.template.column.fillOpacity = 0.8;
+
+        // on hover, make corner radiuses bigger
+        var hoverState = series.columns.template.column.states.create("hover");
+        hoverState.properties.cornerRadiusTopLeft = 0;
+        hoverState.properties.cornerRadiusTopRight = 0;
+        hoverState.properties.fillOpacity = 1;
+
+        series.columns.template.adapter.add("fill", function (fill, target) {
+            return chart.colors.getIndex(target.dataItem.index);
+        });
+
+        // Cursor
+        chart.cursor = new am4charts.XYCursor();
+
+    }
+
+    //Create racial chart
+    function racialamchart() {
+        am4core.useTheme(am4themes_animated);
+
+        // Create chart instance
+        var chart = am4core.create("equalityc2", am4charts.RadarChart);
+        chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+        chart.fontSize = 12;
+        chart.data = racialchartdata;
+
+        //Add padding to chart
+        chart.padding(20, 20, 20, 20);
+
+        //create y axis
+        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.dataFields.category = "RacialEthnicIdentity";
+        categoryAxis.renderer.labels.template.location = 0.5;
+        categoryAxis.renderer.tooltipLocation = 0.5;
+        categoryAxis.renderer.cellStartLocation = 0.2;
+        categoryAxis.renderer.cellEndLocation = 0.8;
+
+        //create x axis
+        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.tooltip.disabled = true;
+        valueAxis.renderer.labels.template.horizontalCenter = "left";
+        valueAxis.min = 0;
+
+        //create chart series
+        var series1 = chart.series.push(new am4charts.RadarColumnSeries());
+        series1.columns.template.tooltipText = "{name}: {valueY.value}";
+        series1.columns.template.width = am4core.percent(100);
+        series1.name = "Series 1";
+        series1.dataFields.categoryX = "RacialEthnicIdentity";
+        series1.dataFields.valueY = "count";
+        chart.seriesContainer.zIndex = -1;
+        chart.cursor = new am4charts.RadarCursor();
+        chart.cursor.xAxis = categoryAxis;
+        chart.cursor.fullWidthXLine = true;
+        chart.cursor.lineX.strokeOpacity = 0;
+        chart.cursor.lineX.fillOpacity = 0.1;
+        chart.cursor.lineX.fill = am4core.color("#000000");
+    }
+
+    //Create gender chart
+    function genderamchart() {
+
+        am4core.useTheme(am4themes_material);
+        am4core.useTheme(am4themes_animated);
+        var chart = am4core.create("equalityc1", am4charts.XYChart);
+        chart.data = genderchartdata;
+        chart.width = am4core.percent(80);
+        // Create axes
+        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.dataFields.category = "gender";
+        categoryAxis.renderer.grid.template.disabled = true;
+        categoryAxis.renderer.minGridDistance = 30;
+        categoryAxis.renderer.inside = true;
+        categoryAxis.renderer.labels.template.fill = am4core.color("#fff");
+        categoryAxis.renderer.labels.template.fontSize = 15;
+
+        //create y axis
+        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.renderer.grid.template.strokeDasharray = "4,4";
+        valueAxis.renderer.labels.template.disabled = true;
+        valueAxis.min = 0;
+
+        // Do not crop bullets
+        chart.maskBullets = false;
+
+        // Remove padding
+        chart.paddingBottom = 0;
+
+        // Create series
+        var series = chart.series.push(new am4charts.ColumnSeries());
+        series.dataFields.valueY = "count";
+        series.dataFields.categoryX = "gender";
+        series.columns.template.propertyFields.fill = "color";
+        series.columns.template.propertyFields.stroke = "color";
+        series.columns.template.column.cornerRadiusTopLeft = 15;
+        series.columns.template.column.cornerRadiusTopRight = 15;
+        series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/b]";
+
+        // Add bullets
+        var bullet = series.bullets.push(new am4charts.Bullet());
+        var image = bullet.createChild(am4core.Image);
+        image.horizontalCenter = "middle";
+        image.verticalCenter = "bottom";
+        image.dy = 20;
+        image.y = am4core.percent(100);
+        image.propertyFields.href = "bullet";
+        image.tooltipText = series.columns.template.tooltipText;
+        image.propertyFields.fill = "color";
+        image.filters.push(new am4core.DropShadowFilter());
+    }
+
+    //Create diversity chart
+    function diversityamchart() {
+        am4core.useTheme(am4themes_material);
+        am4core.useTheme(am4themes_animated);
+        // Themes end
+
+        // Create chart instance
+        var chart = am4core.create("diversitychart", am4charts.XYChart);
+        chart.scrollbarX = new am4core.Scrollbar();
+
+        // Add data
+        chart.data = diversitychartdata;
+
+        // Create axes
+        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.dataFields.category = "diversity";
+        categoryAxis.renderer.grid.template.location = 0;
+        categoryAxis.renderer.minGridDistance = 30;
+        categoryAxis.renderer.labels.template.horizontalCenter = "right";
+        categoryAxis.renderer.labels.template.verticalCenter = "middle";
+        categoryAxis.renderer.labels.template.rotation = 270;
+        categoryAxis.tooltip.disabled = true;
+        categoryAxis.renderer.minHeight = 110;
+
+        //Create y axis
+        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.renderer.minWidth = 50;
+
+        // Create series
+        var series = chart.series.push(new am4charts.ColumnSeries());
+        series.sequencedInterpolation = true;
+        series.dataFields.valueY = "count";
+        series.dataFields.categoryX = "diversity";
+        series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
+        series.columns.template.strokeWidth = 0;
+
+        series.tooltip.pointerOrientation = "vertical";
+
+        series.columns.template.column.cornerRadiusTopLeft = 10;
+        series.columns.template.column.cornerRadiusTopRight = 10;
+        series.columns.template.column.fillOpacity = 0.8;
+
+        // on hover, make corner radiuses bigger
+        var hoverState = series.columns.template.column.states.create("hover");
+        hoverState.properties.cornerRadiusTopLeft = 0;
+        hoverState.properties.cornerRadiusTopRight = 0;
+        hoverState.properties.fillOpacity = 1;
+
+        series.columns.template.adapter.add("fill", function (fill, target) {
+            return chart.colors.getIndex(target.dataItem.index);
+        });
+
+        // Cursor
+        chart.cursor = new am4charts.XYCursor();
+    }
+
+    //Create religion chart
+    function religionamchart() {
+        am4core.useTheme(am4themes_kelly);
+        am4core.useTheme(am4themes_animated);
+        // Themes end
+        // Create chart instance
+        var chart = am4core.create("inclusivityc1", am4charts.PieChart3D);
+        chart.fontSize = 12;
+        chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+        
+        // Add a legend
+        chart.legend = new am4charts.Legend();
+
+        chart.data = religionchartdata
+        
+        // Add and configure Series
+        var series = chart.series.push(new am4charts.PieSeries3D());
+        series.dataFields.value = "count";
+        series.dataFields.category = "religion";
+    }
+
+    //Create inclusivity chart
+    function langamchart() {
+        am4core.useTheme(am4themes_material);
+        am4core.useTheme(am4themes_animated);
+        // Themes end
+
+        // Create chart instance
+        var chart = am4core.create("inclusivityc2", am4charts.PieChart);
+        chart.fontSize = 12;
+        // Add and configure Series
+        var pieSeries = chart.series.push(new am4charts.PieSeries());
+        pieSeries.dataFields.value = "count";
+        pieSeries.dataFields.category = "language";
+
+        // Let's cut a hole in our Pie chart the size of 30% the radius
+        chart.innerRadius = am4core.percent(30);
+
+        // Put a thick white border around each Slice
+        pieSeries.slices.template.stroke = am4core.color("#fff");
+        pieSeries.slices.template.strokeWidth = 2;
+        pieSeries.slices.template.strokeOpacity = 1;
+        pieSeries.slices.template
+            // change the cursor on hover to make it apparent the object can be interacted with
+            .cursorOverStyle = [
+                {
+                    "property": "cursor",
+                    "value": "pointer"
+                }
+            ];
+
+        //pieSeries.alignLabels = false;
+        //pieSeries.labels.template.bent = true;
+        //pieSeries.labels.template.radius = 3;
+        //pieSeries.labels.template.padding(0, 0, 0, 0);
+
+        pieSeries.ticks.template.disabled = true;
+        //pieSeries.labels.template.fontSize = 15;
+
+        // Create a base filter effect (as if it's not there) for the hover to return to
+        var shadow = pieSeries.slices.template.filters.push(new am4core.DropShadowFilter);
+        shadow.opacity = 0;
+
+        // Create hover state
+        var hoverState = pieSeries.slices.template.states.getKey("hover"); // normally we have to create the hover state, in this case it already exists
+
+        // Slightly shift the shadow and make it more prominent on hover
+        var hoverShadow = hoverState.filters.push(new am4core.DropShadowFilter);
+        hoverShadow.opacity = 0.7;
+        hoverShadow.blur = 5;
+
+        // Add a legend
+        chart.legend = new am4charts.Legend();
+
+        chart.data = langchartdata;
+
+    }
+
+</script>

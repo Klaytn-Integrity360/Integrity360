@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html>
+ <!--
+  year:    2022 
+  Languages: Javascript, HTML, CSS
+  Function   : AccountDetailsBtn, handleFeedback 
+  
+  Description: This page helps the user to transact klay 
+               from one account to another and also to get the account details.
+
+ Helios by HTML5 UP
+ html5up.net | @ajlkn
+ Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<head>
+  <!--This page helps the user to transact klay from one account to another and also to get the account details-->
+  <meta charset="utf-8" />
+  <title>Add supplier Information</title>
+  <!--Link the required stylesheets to register supplier-->
+  <!-- <link rel="stylesheet" type="text/css"
+    href="https://storage.googleapis.com/chart-api-db/CDN/deps/opt/bootstrap.css" /> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://storage.cloud.google.com/integrity360/assets/css/main.css" />
+</head>
+<body>
+  <div id="page-wrapper">
+	<!-- Header -->
+  <div id="header">
+    <img>
+    <!-- Nav -->
+    <nav id="nav">
+      <ul>
+        <!--List the pages -->
+        <li><a href="index.html">Home</a></li>
+        <li>
+          <a href="ManageAgency.html">Government Agencies</a>
+          <ul>
+            <li><a href="ManageAgency.html">Manage DEI Agencies</a></li>
+            <li><a href="ManageDEIAccounts.html">Manage Diversity Klaytn Accounts</a></li>
+            <li><a href="DEIComplianceDashboard.html">DEI Compliance Dashboards</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="ManageCompany.html">Companies</a>
+          <ul>
+            <li><a href="ManageCompany.html">Manage Companies</a></li>
+            <li><a href="RegisterSupplier.html">Add Supplier Information as Klaytn Transaction</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="DEIComplianceDashboard.html">Compliance Auditors</a>
+          <ul>
+            <li><a href="DEIComplianceDashboard.html">DEI Metrics from Klaytn Transactions</a></li>
+							  <li><a href="DeviationApproval.html">Raise a Multi-Seg Deviation Transaction</a></li>
+          </ul>
+        </li>
+       
+        <li><a href="About.html">About</a></li>
+      </ul>
+    </nav>
+
+  </div>
+  </div>
+  <div class="container">
+    <div style="margin-top: 30px;">
+      <!--Intro to supplier/Vendor-->
+      <ol style="background-color:antiquewhite; font-size: larger;color: black;">
+        <li>A vendor/supplier is added to the system and all the data is stored as a <b><i><u>Memo along with a Unique Transaction</u></b></i></li>
+        <li>Data includes the <i><b><u>Name, Education, Ethnicity, Religion, Gender etc.</b></u></i></li>
+        </li>
+      </ol>
+    </div>
+    <!--Create payment, account details button-->
+    <button class="btn btn-primary my-3" onclick="sendPaymentBtn()">Add Supplier</button>
+    <button class="btn btn-primary my-3" onclick="accountDetailsBtn()">Account Details</button>
+    <form id="searchForm" style="display: none;"></form>
+    <form id="paymentForm" style="display: none;"></form>
+  
+    <form id="qrCode" style="display: none;"></form>
+    <pre id="myText" style="display: none;"></pre>
+    <div id="feedbackGrid" class="mt-3"></div>
+  </div>
+  <br></br>
+  <div class="modal fade" id="exampleModal" style="margin-top: 50px;" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Fill Supplier Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <!-- <form id="insertForm" style="display: none;"></form> -->
+          <form id="updateForm" style="display: none;"></form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer id="footer">
+		<div class="row">
+      <div class="col-12" align="center">
+
+        <!-- Contact Information -->
+          <section class="contact">
+           <header>
+									<b>Looking for Deploying Integrity360 to your Organization/Government</b>
+									<br><i>Integrity360 is a zero deployment package just requiring a cloud web space and Klaytn Account.</i>
+								</header>
+          </section>
+
+        <!-- Copyrights Information -->
+          <div class="copyright">
+            <ul class="menu">
+              <li>&copy; Integrity360. All rights reserved.</li>
+            </ul>
+          </div>
+
+      </div>
+
+    </div>
+  </footer>
+
+  <div id="res" class="alert"></div>
+  <!--Link the required script files to registersupplier-->
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/jquery.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/jquery.dropotron.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/jquery.scrollex.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/browser.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/breakpoints.min.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/util.js"></script>
+  <script src="https://storage.googleapis.com/chart-api-db/assets/js/main.js"></script>
+  <script type="text/javascript" src="https://storage.googleapis.com/chart-api-db/CDN/deps/underscore.js"></script>
+  <script type="text/javascript" src="https://storage.googleapis.com/chart-api-db/CDN/deps/opt/jsv.js"></script>
+  <script type="text/javascript" src="https://storage.googleapis.com/chart-api-db/CDN/lib/jsonform.js"></script>
+  <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js" type="text/javascript"></script>
+  <link href="https://cdn.syncfusion.com/ej2/material.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuidv4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+
+  <script type="text/javascript">
+
+    //Add event listener
+    document.addEventListener("DOMContentLoaded", _ => {
+      $('#feedbackGrid').hide();
+      //create paramsObj
+      var paramsObj = {}
+      paramsObj.type = "MongodbData";
+      paramsObj.database = "Industry";
+      paramsObj.collection = "Suppliers";
+      paramsObj.queryType = "read";
+      paramsObj.record = {};
+
+      //Call the api and parse the json data
+      let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(paramsObj)
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          //Add syncfusion grid and set the properties
+          grid = new ej.grids.Grid({
+            dataSource: data,
+            allowSelection: true,
+            allowFiltering: true,
+            allowTextWrap: true,
+            allowSorting: true,
+            allowPaging: true,
+            enableVirtualization: true,
+            toolbar: ['Search'],
+            filterSettings: { type: 'Menu' },
+            selectionSettings: { persistSelection: true, type: "Multiple", checkboxOnly: true },
+            enableHover: false,
+            enableHeaderFocus: true,
+            pageSettings: { pageCount: 4, pageSizes: true },
+            height: 300,
+            rowHeight: 38,
+            //Add fields and required width
+            columns: [
+              { field: 'SupplierID', headerText: 'ID', width: 100 },
+              { field: 'SupplierName', headerText: 'Name', width: 120 },
+              { field: 'Category', headerText: 'Category', width: 130 },
+              { field: 'Website', headerText: 'Website', visible: false },
+              { field: 'Year', headerText: 'Year', width: 105 },
+              { field: 'Function', headerText: 'Function', width: 130 },
+              { field: 'Services', headerText: 'Services' },
+              { field: 'Resources', headerText: 'Resources', width: 90, visible: false },
+              { field: 'Region', headerText: 'Region' },
+              { field: 'Country', headerText: 'Country', width: 120 },
+              { field: 'EwalletID', headerText: 'Ewallet ID', width: 120 },
+              { field: 'LinkedinUrl', headerText: 'LinkedinUrl', visible: false },
+              {
+                headerText: 'Action', width: 100,
+                commands: [{ type: 'Edit', buttonOption: { iconCss: ' e-icons e-edit', cssClass: 'e-flat' } },
+                { type: 'Delete', buttonOption: { iconCss: 'e-icons e-delete', cssClass: 'e-flat' } },
+                { type: 'Redirect', buttonOption: { iconCss: ' e-icons e-hyperlink-open', cssClass: 'e-flat' } }]
+              }
+            ],
+            //Create on click action
+            commandClick: (args) => {
+              debugger
+              //check if command is Redirect
+              if (args.commandColumn.type == "Redirect") {
+                //handleUpdateFeedback();
+
+                // var hash = `${args.rowData.hash}`
+                var id = `${args.rowData.SupplierID}`;
+                var supplierName = `${args.rowData.SupplierName}`;
+                localStorage.setItem("supplier_id", id);
+                localStorage.setItem("supplier_name", supplierName);
+                window.open("Klaytn_Agency.html", "_blank");
+              }
+              //check if command is edit
+              if (args.commandColumn.type == "Edit") {
+                //handleUpdateFeedback();
+
+
+                $('#insfrm').hide();
+                $("#exampleModalLabel").html("Update Form: ");
+               // $('#insfrm').hide();
+                $('#searchForm').hide();
+                $('#insertForm').hide();
+                $('#exampleModal').modal('show');
+                let updateFormEle = document.querySelector("#updateForm");
+                updateFormEle.style.display = "";
+                $('#updateForm').html("");
+                $('#updateForm').jsonForm({
+                  //create schema
+                  schema: {
+                    SupplierID: {
+                      type: 'number',
+                      readonly: true
+                    },
+                    SupplierName: {
+                      type: 'string',
+                      required: true
+                    },
+                    Category: {
+                      type: 'string',
+                      required: true,
+                      title: 'Select Category',
+                      enum: [
+                        'Technology',
+                        'Logistics',
+                        'Retail',
+                        'Construction',
+                        'Training',
+                        'Software',
+                        'Consulting',
+                        'Marketing'
+                      ]
+                    },
+                    Website: {
+                      type: 'string'
+                    },
+                    Year: {
+                      type: 'number'
+                    },
+                    Function: {
+                      type: 'string',
+                      required: true
+                    },
+                    Resources: {
+                      type: 'string'
+                    },
+                    Region: {
+                      type: 'string'
+                    },
+                    Country: {
+                      type: 'string',
+                      required: true
+                    },
+                    LinkedinUrl: {
+                      type: 'string'
+                    },
+                    Services: {
+                      type: 'string',
+                      required: true
+                    }
+                  },
+                  value: {
+                    SupplierID: `${args.rowData.SupplierID}`,
+                    SupplierName: `${args.rowData.SupplierName}`,
+                    Category: `${args.rowData.Category}`,
+                    Website: `${args.rowData.Website}`,
+                    Year: `${args.rowData.Year}`,
+                    Function: `${args.rowData.Function}`,
+                    Resources: `${args.rowData.Resources}`,
+                    Region: `${args.rowData.Region}`,
+                    Country: `${args.rowData.Country}`,
+                    LinkedinUrl: `${args.rowData.LinkedinUrl}`,
+                    Services: `${args.rowData.Services}`
+                  },
+                  form: [
+                    {
+                      key: "SupplierID",
+                      type: "text"
+                    },
+                    {
+                      key: "SupplierName",
+                      type: "text"
+                    },
+                    {
+                      key: "Category"
+                    },
+                    {
+                      key: "Website",
+                      type: "text"
+                    },
+                    {
+                      key: "Year",
+                      type: "text"
+                    },
+                    {
+                      key: "Function",
+                      type: "text"
+                    },
+                    {
+                      key: "Resources",
+                      type: "text"
+                    },
+                    {
+                      key: "Region",
+                      type: "text"
+                    },
+                    {
+                      key: "Country",
+                      type: "text"
+                    },
+                    {
+                      key: "LinkedinUrl",
+                      type: "text"
+                    },
+                    {
+                      key: "Services",
+                      type: "text"
+                    },
+                    {
+                      type: "submit",
+                      title: "Update Supplier"
+                    }
+                  ],
+                  onSubmit: function (errors, values) {
+                    if (errors) {
+                      $('#res').html('<p>Please fill required fields!</p>');
+                    }
+                    else {
+                      console.log(values);
+                      $('#exampleModal').modal('hide');
+                      //create paramsObj
+                      var paramsObj = {};
+                      paramsObj.type = "MongodbData";
+                      paramsObj.database = "Industry";
+                      paramsObj.collection = "Suppliers";
+                      paramsObj.queryType = "update";
+                      //create old_record
+                      var old_record = {};
+                      old_record.SupplierID = values.SupplierID;
+                      paramsObj.oldRecord = old_record;
+                      //create record
+                      var record = {};
+                      record.SupplierID = values.SupplierID;
+                      record.SupplierName = values.SupplierName;
+                      record.Category = values.Category;
+                      record.Website = values.Website;
+                      record.Year = values.Year;
+                      record.Function = values.Function;
+                      record.Resources = values.Resources;
+                      record.Region = values.Region;
+                      record.Country = values.Country;
+                      record.LinkedinUrl = values.LinkedinUrl;
+                      record.Services = values.Services;
+                      paramsObj.record = record;
+                      //call the api
+                      let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(paramsObj);
+                      fetch(url)
+                        .then(response => response.text())
+                        .then(data => {
+                          alert(data);
+                          //create fetchObj
+                          var fetchObj = {};
+                          fetchObj.type = "MongodbData";
+                          fetchObj.database = "Industry";
+                          fetchObj.collection = "Suppliers";
+                          fetchObj.queryType = "read";
+                          fetchObj.record = {};
+                          //call the api
+                          let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(fetchObj);
+                          fetch(url)
+                            .then(response => response.json())
+                            .then(data => {
+                              grid.dataSource = data;
+                              $('#feedbackGrid').show();
+                              //handleUpdateFeedback();
+                              updateFormEle.style.display = "none";
+                              window.location.href = "Supplier360_ManageSuppliers.html"
+                            })
+                        })
+                    }
+                  }
+                });
+              }
+              else {
+                //Create delete confirmation
+                var confirmDel = confirm("Are you sure to delete Supplier " + args.rowData.SupplierID);
+                //If delete action is confirmed
+                if (confirmDel == true) {
+                  //create paramsObj
+                  var paramsObj = {};
+                  paramsObj.type = "MongodbData";
+                  paramsObj.database = "Industry";
+                  paramsObj.collection = "Suppliers";
+                  paramsObj.queryType = "delete";
+                  var record = {};
+                  record.SupplierID = args.rowData.SupplierID;
+                  paramsObj.record = record;
+                  //call the api
+                  let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(paramsObj);
+                  fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                      alert(data);
+                      //create fetchObj
+                      var fetchObj = {};
+                      fetchObj.type = "MongodbData";
+                      fetchObj.database = "Industry";
+                      fetchObj.collection = "Suppliers";
+                      fetchObj.queryType = "read";
+                      fetchObj.record = {};
+                      let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(fetchObj);
+                      fetch(url)
+                        .then(response => response.json())
+                        .then(data => {
+                          grid.dataSource = data;
+                          $('#feedbackGrid').show();
+                        })
+                    })
+                }
+              }
+            }
+          });
+          grid.appendTo('#feedbackGrid');
+        });
+
+    });
+
+    //create a payments button
+    sendPaymentBtn = () => {
+      let insertFormEle = document.querySelector("#paymentForm");
+      insertFormEle.style.display = insertFormEle.style.display == "none" ? "" : "none";
+      // $('#feedbackGrid').hide();
+      $('#searchForm').hide();
+      $('#paymentForm').html("");
+      let newUuid = uuidv4();
+      //create a schema
+      $('#paymentForm').jsonForm({
+        schema: {
+          SenderKey: {
+            type: 'string',
+            default: "0x1bAB123c3b3eAd9C610ec880c0412c763fC1E0EB",
+            title: 'Company Name',
+            required: true,
+            enum:['oracle Technology (0xA2a24D0c0252f257896AA61CB1d4e909581fe6f1)',
+                  'hcl technologies (0x8510B182b0873D421285f6811C612b76Ef4F3050)',
+                  'dell (0x7FC5EEe01E3CdF46e74a4294df9DC7e4bdd8088d)',
+                  'verizon (0xb7105Cb2AaDe069A1CE8d9673f91a6062D5A5bfF)',
+                  'thomson reuters (0x1a77F4f790a9a8635Fe57Eb3FDd880f844BC313b)',
+                  'atos (0x341D6133675D0751CC914983e0bc7447B52750f7)',
+                  'sopra steria (0x1f7e1F12458FB4D06d1856EEef9249dE683D34Ff)',
+                  'fujitsu (0xD11C0b8dd34d8249Ac708551C6585a91561f1c9B)',
+                  'saic (0xC3fb860508ab4A5ed90dcF5c54a26A488CD02Ce6)',
+                  'fiserv (0x89D26247Ceb783360e8D0569A1882cAD80aAB437)',
+                  'mastercard (0xE6476d078a3053e3F57A232f18D81D597ed90f19)',
+                  'gartner (0x961c64279fdE613ecD5c8b3dCC2d6833c54250E5)',
+                  'tieto (0x81a0d292C5ed671642CfB6Cc59D05dd5a99f8E8B)',
+                  'ust global (0x8ECef42E263378C31ec77c5c2529cc118185fdbf)',
+                  'pitney bowes (0x4B4085B145EF1cFA1f666DC0Bf36075bcA852D7A)',
+                  'teradata (0xd86fa735128e14c536347A2138B963CB515eC0D0)',
+                  'hexaware technologies (0x09EFb54F56aDb08D750172892239E96c9f2eB637)',
+                  'cyient (0x4734988998Af46FFb470Ba3612025a0A2a8Bd950)',
+                  'sabre corporation (0x35f581f6D963ABCA48Ad8b59e53cd2a96b809923)',
+                  'lonza (0x4F29C538cb667fe4c5C6945792a0FD0EbF154d38)',
+                  'cmc ltd (0xC1BEa9db867F04FeBF6E5bDc92340FceE96C4b0F)',
+                  'sapient (0x0C19D9d35F33Cc3a45C75Ea03c93da8b900b94b4)',
+                  'dow agrosciences (0x941c91087C62e4B2e3d797F6236A87A205C456Bf)',
+                  'avnet (0x16cEf9Ce0983dd17a561963915A3A1333047E7A6)',
+                  'samsung sds (0xbcC51c9AF527F97e7F2cd620275e10b9D2Eef0e1)',
+                  'keane (0xb9aa7353Cef6E9352C8ECFf5DaB6c836d7799882)',
+                  'thoughtworks (0x4D570CEdC7514A5C50BedBd68c496eA6e064d4f0)',
+                  'akka technologies (0x9bBD413dC86a8C0E849643167Ce5e2c7Ff6F8DdA)',
+                  'scc (0x2a826175BECEa7DCec59E46bC707A16a973ea931)',
+                  'ceb, now gartner (0xA12D1476e5aCb27A905Cca13dE5f6e58EEe49473)',
+                  'r systems (0x36566ce47F7FafB4D3cC40f95E691850Ff685ECE)',
+                  'asl (0xFAC73Db8Ff36784da3dcE5775d5F31867C5d324f)',
+                  'shi international corp. (0xb97E5C875924D25516DD37f82585ac5556750d66)',
+                  'birlasoft (0xc629ed115D2408a04891D245F9F9c638F8FCDe4e)',
+                  'endava (0x1e379f7F9b833D3f451De121FbF116c7D938F8c8)',
+                  'medimmune (0x38afdc9cd397C1Ea80789fD0469EA3b47E656054)',
+                  'ncs group (0x132928b5DBd976537cBfEDd63b07441169562d47)',
+                  'afp (0xd30b1eaB03870871AB3Db59B05516606a10f4dE0)',
+                  'sonata software (0x9cc7999D1Cfa9b8b3265911234C296F6963DeAde)',
+                  'disa (0x21f0c4C8dD7f3c44926aDcf71B8D23C6AD5A6360)',
+                  'nagarro (0x7aae059FA35Fd22e6fAF2162FA486B9B67443C6A)',
+                  'wincor nixdorf (0xFae5414E465ce223d2FAC56a8A490f7F07e4F73E)',
+                  'meditech (0xA279903f805Fa1A89e881550e096b3C8cE7CEaba)',
+                  'veeam software (0x9e03843D4E15046bAdeD706430Dc3586b727dac9)',
+                  'd+h (0x088f8D5D73Dd3d0B85f25ea11fdc4eeDBDCcD5E0)',
+                  'bull (0x319669935557EB691AceE4Ff11DB834509191012)',
+                  'biomarin pharmaceutical inc. (0x2cA8A7dA2171F1Bac59aE6Ba61E83e28771ADBBE)',
+                  'pcm (0xBC166458F5B304b9394CDd060CF78064E803baa0)',
+                  'arc (0x5e00599CF3Bec38fA7c65B9a7E77e8e6A2A7A3A8)',
+                  'mastek ltd (0x4f32c58C2dD7F174203fd194d72995Bb7087FA16)',
+                  'ci&t (0xD0e4A23B7c43F119549dEA8fa74CcE8698358B1f)',
+                  'just dial limited (0x56b3EC77BbC835Cf22411900be376796F028125B)',
+                  'ctrip.com (0xc482343e2B487786c8e2F562F1a2055e4C7d1315)',
+                  'aubay (0x1A0BEb7Ab268b4B2520adA8e8aaA5036dA731Ff4)',
+                  'lg cns co., ltd. (0xD55dd1Ce89E7247D9b9cCAB636E87feA30bcB051)',
+                  'perficient (0xf7573eaC8B5bf9582Aa792AFE54205d28264D205)',
+                  'infosys ltd. (0x6df2ecACCfced8BBb6f7EDbbEE8A2c6bbBb80119)',
+                  'nextgen healthcare (0xfeaB6019fc40DD6D833537D27e692a525825B950)',
+                  'daisy group (0xc7Afdbdd41D96a9f0938A07e3d6364c9115Ef878)',
+                  'geometric ltd. (0x5d12cadE229592979937DA3aEbD0a39b8ff05d10)',
+                  'ssp (0xCD781801276D6F804B2EDB74C6fe3c6391113628)',
+                  'praxis (0xd51e07e8aEa16A4d766411A43291e5f00eE48235)',
+                  'alltech (0x66Fb83C56cd8F20e1a62A73Fd8BD9c8bd0CbedB6)',
+                  'business & decision (0x1971b213B3E8018528B88E639AF077A16Ba354E5)',
+                  'trt (0x8bD30789b41Dd157E3dDd1C7647F84310BDD4704)',
+                  'go-jek (0x90847b4c9fCC937E1BEe41eb4eF488C67CE9d45d)',
+                  'pgi (0xb1a9ac81CE06c75F4Ac56A05463f9FEe5d3D9481)',
+                  'quess corp limited (0xcD810Fac9B9533ABE1cF41245705f67c464f4b1c)',
+                  'sii poland (0x99c26Ff66c523fE1aF452d5777F811BcDd64A733)',
+                  'keyrus (0x9DD67e6fe9d2e0d19283734f1AC10E666bE73783)',
+                  'ibm deutschland gmbh (0x92dc56feAa65e5cA5EaC2aDc93bfB144a77995cB)',
+                  'cigniti technologies (0xA207c36B632a2057B8f8fC88A0bB76644476321c)',
+                  'zones, inc. (0xbb209C50B32380E4cB9205448B9571001016f283)',
+                  'daimler tss (0xb30a8A6A00Eb941F5d429C7E9d8D365Bc4E6CdA8)',
+                  'aec contact center (0xa51A5D18224994144E0311F0339AA0142b4faEBF)',
+                  'trimax it infrastructure & services ltd (0x0e3E8cC1bF8E5D47908F19aAdc337d1bD18197f4)',
+                  'tavant technologies (0xbFaE53d08BA05229d8aBa7C8Ef36343dd514467f)',
+                  'trizetto corporation (0x6B2E22851109637134B46b4b89d69064F8cE8CFe)',
+                  'nadra (0xd749489c9D7261767440dCb3E5570D54C1b7C4cc)',
+                  'stone pagamentos (0x619a3402fA90769CE0aEe9Ce3fAa5633bF09e8da)',
+                  'baxalta (0x205d1AAb9ebc47df7f5fb7CCF2784493F04379E9)',
+                  'ricoh uk (0x19aF404bd51Ae96f4011a7F858e8569770Cc000B)',
+                  'elm company (0x26D04fA637e064E07B9677C5D1d3ca12Ff0c6B6d)',
+                  'verisign (0xAF8EDE7C2933d66AE0CB3319Cf95372203a7d7DD)',
+                  'crif (0xe6A98eA3AB9Df65e4309430aB680c4b02fb66a05)',
+                  'n/a - information is no longer available at this moment in time. (0x7D13c32e7E8b8f5F727bd9a0BA0AE393232405E6)',
+                  'datacentrix (0x6528Db737da2E87293e2BA7E836b4d061b3F98A8)',
+                  'koçsistem (0x03b9b5c8b6c27B7fc815b269b15dE77B2C5cC7E4)',
+                  'team computers (0x7374d55C7dA3F9a188357F4748cB1baeE296aBb5)',
+                  'cybercom group (0xA4918040f7732ADeF914c0F56Acecc037F23Da71)',
+                  'proservia - manpowergroup solutions (0x342aC933f4e43c81c54f6DC6d02015259a624E1B)',
+                  'computer futures (0x69D17756508be407946EF0909F8E41ce9788C68A)',
+                  'inmar (0x3C228829A7bdd32b0250e94bB2A6Da8c8194E26d)',
+                  'pyramid consulting, inc (0xdce811283b94f703F6573FcD3bD77Ed227b9f22C)',
+                  'idc technologies, inc. (0x40438131f008172f0B3742CB3805047Bc320bfb6)',
+                  'mimecast (0x15B40dd55c91FA4146e41b12EeDaEf7d0f9D2506)',
+                  'arc document solutions (0xd9E45b5d2894FB3Cfaff3699f80eA8533fC077aC)',
+                  'hiq (0x290E6BeE5711587ADEC875a2077B909BB436216D)',
+                  'pt. sigma cipta caraka (telkomsigma) (0xC9486cBD800349C4e2129869B8837DF41dBF21D9)',
+                  'grupo assa (0xba1Bb9eaA298b989E81ac6a15AfA2165DF7764df)',
+                  'alutiiq (0xFc071Cea02E438Cf7Eb51b51E3bE9911086D3839)',
+                  'ricoh españa (0x2C44096D7305Bb0F2a881683Bc8b6058836000fe)',
+                  'virtustream (0x5783CE607E5C66d5Ed4AE1527D187045D3712915)',
+                  'dsa (0x76C340A919491EEa773E153e81ebB52ad7226599)',
+                  'petronas ict sdn bhd (0x43f98FCfA702144bfBC71EF754bF2b37d189a739)',
+                  'cpqd (0x6252d34b3fd3caF1cA3a9ac89f1B82dE98785E48)',
+                  'smals (0xc9AEE31309dF84cD6Be56902210C3A08D1173D88)',
+                  'quinnox (0xEBFF747858F58B732B57d43c016291d864b64f12)',
+                  'bouvet asa (0xD13142d58083229f0a2a8C823a02aaa1a63BdD63)',
+                  'anaplan (0x2DE13A4162e4017626A5feae7dB759F87A4510AD)',
+                  'sk planet (0x770031d2C92F0cc3B4A31ff51e1e847CB9c52496)',
+                  'ibm (0x8b2dd928f241CFbA78e81dBa505EeD1a2c66c38c)',
+                  'accenture (0x28341944767D6744Bb34C43c5D7663D40a82d676)',
+                  'wipro technologies (0x717b0721D0824CB7D11EDCCB4d9C065F98dcFE76)',
+                  'dell emc (0x6943ff7A3bAB5115a54A88f44EcF5e6C47785b1B)',
+                  'cgi (0x28a39E064024C14e17DfDFf5fC4c724F7D71bDd0)',
+                  'cerner corporation (0x5422B9F9E35a83C2d41371E739Ba4bE798c5b042)',
+                  'genentech (0x8490a2f082C546B76a4469EEEB96F8f02e7a479F)',
+                  't-systems (0x52906e3235619E79D50F02A4bcB91395d342463a)',
+                  'visa (0x38fE8fe71eAAd3A9f22994d5c610396246Ac190e)',
+                  'syntel (0x6AEaF1DDbB00e7AbBc27F2Cf03b51bCEd81E7094)',
+                  'ingram micro (0x323303d25C7c3D1E6d63beEd5D91A58cEFe92d84)',
+                  'ricoh americas corporation (0x0766640318e7B48613B57A882B88cA80b226d32d)',
+                  'shire (0x76BC0fD1d7aab344806A74ACAb4791602F66eF13)',
+                  'netapp (0x9198Ad662A54C67d914346827b06a295A125C797)',
+                  'caci international inc (0xA4C6f7BC99d7Fb41E880Ff9723eBf3C4C57F2848)',
+                  'sogeti (0x2519758118E7C9D1a4286FC704ed475fA3EdC952)',
+                  'ntt data services (0x2cCb50cad7B6a24d2CB80167bd2f1bE760024F1f)',
+                  'igate (0x8D40f525FF17b7d57c08B0E1B0196e81a3bC7605)',
+                  'gilead sciences (0x72FEcda336E1746737E72F8D1C73d144D6AC6757)',
+                  'arrow electronics (0x0110362A09C0D817066E30793ea36e8f2F4da0c5)',
+                  'luxoft (0xaC9aed289d3d171C3a092589F329Cff1e9ecf387)',
+                  'lexmark international, inc. (0x19eb19D1CCd5a1Df7A1E9A0AB9077B5118be01BF)',
+                  'cdw (0xaa696dd1ca857773125969A9fE7f1F69B2Ad2907)',
+                  'celgene (0xa0ED300AaFA7276daCD08DF40c1Dff405B2c39a0)',
+                  'softtek (0x1EcfCd5dF399f1dc3d144bC45f4eF9ec0472cEc4)',
+                  'regeneron pharmaceuticals, inc. (0xeF4f3A0fffE8AC8d57ABE51223e0E3B4B689Aa36)',
+                  'sonda (0x8D607b4AFf7d7B5941e0820B00b10BB5d7529096)',
+                  '3i infotech (0x334906D4a1C3ae69D00F80108855210d9b9a7B67)',
+                  'charles river laboratories (0x2b4f65b6bFa862aaa7bDCfB433fB23f7Ec15CCf1)',
+                  'engineering ingegneria informatica spa (0x501691D5E3b33FD39082933D499d8482Bc2fD4FB)',
+                  'mantech (0x54023972482214300444c8614Fc28Fe86455118E)',
+                  'rackspace, the #1 managed cloud company (0x02A2bCF465734fcD551C42d433af77511fA3C1D7)',
+                  'inci energies (0xA5f3e8843105e017a9D084DDAdc93AFFE63B9Aad)',
+                  'ims health (0x410D1ea162aEBc6643f7F4fC852F4A171B8BF00b)',
+                  'nec (0x59949a80aF50b04543d72C1c06536a30D35A3e0B)',
+                  'illumina (0xb4F1Be081E08e13E57DB20dE4F15A259415c8d9f)',
+                  'alibaba group (0x161bbB6807B523CD709b97065a8D6C529a300eB7)',
+                  'sungard (0x89Aca2890d272d6499FfB65FeeC873D0F7efdA01)',
+                  'videxx laboratories (0x4d9024f97A9acc216CA1F0fF489Dbe1A1f57b696)',
+                  'biocon (0xDfcefb9D10f6656531ff0CD897048AeC56619DA2)',
+                  'athenahealth (0x261Bff010C3010CAb9D49ec5a00be82f74c92702)',
+                  'algar tech (0x3d531A01BDA2A5CCf35A76f898eAb51675AE68C3)',
+                  'econocom (0xf1FcaC801c6a20245e14b59a32413fE6A5e9E656)',
+                  'datacom (0x46442925220dc343fa4D6E369D65EFD6C865C91D)',
+                  'valuelabs (0x1351c2BEA8E9C60DeF21bE71c91666682ca5894a)',
+                  'esri (0xD1CE2e19fac62Fc1Eb40b6eb2C756D09343a496A)',
+                  'world wide technology (0x23678a8127Ab946ba7D6338E090A58A46822F006)',
+                  'serpro (0x18bDBF4b0d0FdAfd63Cb500c61236217bAD2aCfB)',
+                  'acxiom (0xCb1915F004bD4bC77611454b841eC15971fceE07)',
+                  'pactera (0x45bD3A31e3D761B55D67ACAc42e8c73846546364)',
+                  'neusoft (0x6Dcf14210ccE968d30b0B168741fff2862CDC6A6)',
+                  'datamatics global services limited (0x464D197A58DB79aE2B1a80902f5708470D1bC8aD)',
+                  'private sector (0x785Bf646d0b6625287faC5A945fc3640B5D694aa)',
+                  'neoris (0x64DAE57D1db0bC22A76D4a43d2b66a25c778242e)',
+                  'qiagen (0xbcAd543dB1D57E46c95368d53794Ae468AD7FeAe)',
+                  'devoteam (0xA7b02744ab96a6531b2adAE8EF146d0bF4b40Aa4)',
+                  'eoh (0x5CE9D1092c6571db2f60ffc3B6721238d3Bf47Eb)',
+                  'viewnext (0x263f9e946d784648ac3E97770e377d7C066455e0)',
+                  'presidio (0xA0E7A31b87C1150321D5b8f42d718c731Fb130da)',
+                  'kmd (0x7871414517E35e3F121265958E3fB266bD492224)',
+                  'connection (0x600c648A89Eb72860E74D675647392c9b4790d40)',
+                  'merrill corporation (0x8e1cD08B6914A19EaB3f5F288F2b08EA4e391cdD)',
+                  'pomeroy (0x2288F76fbb5b595aB2BafB92517A6E579BA3aD1b)',
+                  'gijima (0x6C09BB2Eec2bD9EC6ecc340026Beb21Ad90aAA2B)',
+                  'linx s.a. (0x6393C713860846244DBfA7F43d6Abb7d677de529)',
+                  'sapfreelance (0x324bA2EC134C106a3C7cAA6E3a551F6eFa305aad)',
+                  'sberbank-technology (0x815Fe20bf8eDeEC480DEE80d34C7685C47A776A6)',
+                  'global hitss (0x29c63133aA20ffe12172a3dd1Ad5529897DF9073)',
+                  'any technologies (0x9cF48433a120eE1Efc629A9885abFfc5fA2ab318)',
+                  'ordina (0x996d67bd63913c614D10150213658700AC591EF6)',
+                  'rolta india limited (0x7A0144C891C9B269Ee1f21Dc91002d38FA7B841D)',
+                  'sirius computer solutions (0x487376410B587758129B0d225042Bf5f46043130)',
+                  'htc global services (0xa0cBAD0aC589a5f8c887DF7eE0d44699eB288f67)',
+                  'infogain (0xbDA8F56B2bf14E4F629315e447978fb9A5e3fe3D)',
+                  'synnex (0x9c8533b5580A19380f7249361A4338653DcFbFa4)',
+                  'ibermática (0xb0cd8e72d6b2190ABCb7A52D5a75Cdfa5939919d)',
+                  'happiest minds technologies (0x2eF4B6E29b53CCbFebFB3010c01739947210BB5D)',
+                  'eltel networks (0x0D46aF574f66a0bC105Ad4b1f6DF6e1Db2E39d24)',
+                  'iecisa (0xF5605f341aFB53d73749Dd24976Eb6D439815fCc)',
+                  'citiustech (0x18d3a6810cac766B35a4b7a85023A6B9fe7b3Ae1)',
+                  'ministerio de educacion de la republica dominican (0x3633340D192dA630829Ec9f5B2180D2Cbaecc859)',
+                  'pcs technology ltd. (0x6D39f54BB8877F957E18d949cC9bc624b5E1e8CF)',
+                  '--undisclosed-- (0x302A2fa1AfcF26Bdd1651fc033695D8bf5183563)',
+                  'sopra banking software (0xc49E9B899092D8Cd95946f7F0C04d6aa3c789d62)',
+                  'pro unlimited (0xBb9295EB6bE5CD3b8079758A7cd7583cf75652f0)',
+                  'valtech (0x638C41ff47f520FFf29148DB45Caa4331De9433a)',
+                  'xoriant (0x97FCEeaB4A50462efbD1B3FCF7BfBD59Df12332b)',
+                  'basware (0x5422b18b40ff6c05583b1fB7F4CC73808D55eCC9)',
+                  'eurofins lancaster laboratories (0x59170509CbDD3D9e170a08986AB48A025D40BeC6)']
+          },
+          ReceiversKey: {
+            type: 'string',
+            default: "0xe916e668BfE0D1a8b106b81D8Fe08706796147e5",
+            title: 'Agency Name',
+            required: true,
+            enum : ['Instawork - Ethnicity (0x6de4d4a3a6d227739d8266Bc2F1c73Ab1123ec93)',
+                    'Instawork - Diversity (0x2C698e555377399D1383a5685A0aDAE0721245CC)',
+                    'Instawork - Inclusivity (0x0dE5f4e58eb53E9ACe66de2271FF675a691F9b13)',
+                    'ObserveIT - Ethnicity (0xb1C289e412881cAa05570817087Bcc3e67f65892)',
+                    'ObserveIT - Diversity (0x2112535d5f4115d654A2DEA376E7ae4bFdd5567d)',
+                    'ObserveIT - Inclusivity (0xe7B4c00fB4C1F50Cf0471f35300fe452c122F214)',
+                    'Hello Collective - Ethnicity (0x1bAB123c3b3eAd9C610ec880c0412c763fC1E0EB)',
+                    'Hello Collective - Diversity (0x322B4F946EA4b67E7Ce0D2dbc59dE835bae90eF4)',
+                    'Hello Collective - Inclusivity (0xF088190A9EC83D3dc6e7a8900eF2Bf1E5769F150)',
+                    'Glasswall - Ethnicity (0xeb5968A2AeA0fbc9303CB9b0B4611Dc64E249C34)',
+                    'Glasswall - Diversity (0xe916e668BfE0D1a8b106b81D8Fe08706796147e5)',
+                    'Glasswall - Inclusivity (0x37F6E19589183a447AA266e5f9278A67Caf44895)']
+          },
+          CompanyID: {
+            type: 'number',
+            title: 'CompanyID',
+            default: "2364534",
+            required: true
+          },
+          Name: {
+            type: 'string',
+            title: 'Name of the supplier',
+            default: "Michael Kitson",
+            required: true
+          },
+          Aadhar: {
+            type: 'number',
+            title: 'National ID',
+            default: "123456781234",
+            required: true
+          },
+          Address: {
+            type: 'string',
+            title: 'Address',
+            required: true
+          },
+		      State: {
+            type: 'string',
+            title: 'State',
+            default: "Virginia",
+            required: true
+          },
+          City: {
+            type: 'string',
+            title: 'City',
+            default: "New Jersey",
+            required: true
+          },
+          
+          HighestEducation: {
+            type: 'string',
+            title: 'Highest Education',
+            default: "B.Tech",
+            required: true
+          },
+
+          Height: {
+            type: 'number',
+            title: 'Height(in cm)',
+            default: "160",
+            required: true
+          },
+          Age: {
+          type: 'string',
+          title: 'Age',
+          required: true,
+          enum: ['Prefer not to say', '24 years or below','25-34 years','35-44 years','45-54 years','55-64 years','65 years or over']
+          },
+          Gender: {
+          type: 'string',
+          title: 'Which of the options below best describes how you think of your gender?',
+          required: true,
+          enum: ['Prefer not to say','Female','Male','Transgender']
+          },
+          Disability: {
+          type: 'string',
+          title: 'Do you consider yourself to have a disability?',
+          required: true,
+          enum: ['Prefer not to say', 'Yes','No']
+          },
+          Ethnicity: {
+          type: 'string',
+          title: 'Please choose one option below that best describes your ethnic group',
+          required: true,
+          enum: ['Prefer not to say', 'White', 'Asian', 'Black/African/Caribbean/Black British','Mixed/Multiple ethnic groups','Other ethnic group']
+          },
+          // SexualOrientation: {
+          // type: 'string',
+          // title: 'Which of the options below best describes your sexual orientation?',
+          // required: true,
+          // enum: ['Prefer not to say','Heterosexual/straight','Gay/Lesbian/Bisexual']
+          // },
+          Religion: {
+          type: 'string',
+          title: 'Which of the following best describes your religious affiliation?',
+          required: true,
+          enum: ['Prefer not to say', 'No religion','Christian (including Church of England, Catholic, Protestant and all other Christian denominations)','Buddhist','Hindu','Jewish','Muslim','Sikh','other']
+          },
+		      Gas: {
+            type: 'number',
+            default: 25000,
+            title: 'Gas Value',
+            required: true
+          },
+          Amount: {
+            type: 'string',
+            title: 'Amount',
+            default: "0x10000",
+            required: true
+          },
+          // CaringResponsibilites: {
+          // type: 'string',
+          // title: 'Do you have caring responsibilities?',
+          // required: true,
+          // enum: ['Prefer not to say','None','Primary carer of a child/children (under 18)','Primary carer of a disabled child/children (under 18)','Primary carer of a disabled adult (18 and over)','Primary carer of an older person/people','Secondary carer (another person carries out the main caring role)']
+          // },
+		  // Gender: {
+          //   type: 'string',
+          //   title: 'Gender',
+          //   default: "Female",
+          //   required: true
+          // },
+		            // Ethnicity: {
+          //   type: 'string',
+          //   title: 'Ethnicity',
+          //   default: "Indian",
+          //   required: true
+          // },
+		            // Religon: {
+          //   type: 'string',
+          //   title: 'Religion',
+          //   default: "Hindu",
+          //   required: true
+          // },
+        },
+        form: [
+          {
+            key: "SenderKey",
+          },
+          {
+            key: "ReceiversKey",
+          },
+          {
+            key: "CompanyID",
+            type: "number"
+          },
+          {
+            key: "Name",
+            type: "text"
+          },
+          {
+            key: "Aadhar",
+            type: "number"
+          },
+          {
+            key: "Gender",
+          },
+          {
+            key: "Address",
+            type: "text"
+          },
+          {
+            key: "State",
+            type: "text"
+          },
+          {
+            key: "City",
+            type: "text"
+          },
+          {
+            key: "HighestEducation",
+            type: "text"
+          },
+          // {
+          //   key: "Religon",
+          //   type: "text"
+          // },
+          // {
+          //   key: "Ethnicity",
+          //   type: "text"
+          // },
+          {
+            key: "Age"
+          },
+          { key: "Gender"
+          },
+          {
+            key: "Height",
+            type: "number"
+          },
+          { key: "Ethnicity"
+          },
+          { key: "Religion"
+          },
+          { key: "Disability"
+          },
+          {
+            key: "Gas",
+            type: "text"
+          },
+          {
+            key: "Amount",
+            type: "text"
+          },
+          {
+            type: "submit",
+            title: "Confirm Transaction"
+          }
+           // { key: "SexualOrientation"
+          // },
+                    // { key: "CaringResponsibilites"
+          // },
+        ],
+        //create onsubmit action
+        onSubmit: function (errors, values) {
+          if (errors) {
+            $('#res').html('<p>Please fill required fields!</p>');
+          }
+          else {
+            debugger
+            console.log(values);
+            //Create an object record and store the SenderKey, gas, amount, memo, receivers key
+            let str = values.SenderKey;
+            const arr = str.split(" ",3);
+            let compName = arr[2].toString().replace(")","");
+            values.SenderKey = compName.toString().replace("(","");
+
+            let text = values.ReceiversKey;
+            const myArray = text.split(" ",4);
+            let agName = myArray[3].toString().replace(")","");
+            values.ReceiversKey = agName.toString().replace("(","");
+
+            var record = {};
+            record.SenderKey = values.SenderKey;
+            record.Gas = values.Gas;
+            record.ReceiversKey = values.ReceiversKey;
+            record.Amount = values.Amount;
+            record.Age = values.Age;
+            record.Disability = values.Disability;
+            record.Ethnicity = values.Ethnicity;
+           // record.SexualOrientation = values.SexualOrientation
+            record.Gender = values.Gender
+            record.Religion = values.Religion
+            record.Address = values.Address
+           // record.memo = values.CompanyID + ", " + values.Name + ", " + values.Aadhar + ", " + values.Gender + ", " + values.HighestEducation + ", " + values.Religon + ", " + values.Height + ", " + values.Ethnicity + ", " + values.State + ", " + values.City + ", " + values.Age + ", " + values.Disability + ", " + values.Ethnicity + ", " + values.SexualOrientation + ", " + values.Gender + ", " + values.Religion + ", " + values.CaringResponsibilites;
+            record.memo = values.CompanyID + ", " + values.Name + ", " + values.Aadhar + ", " + values.Gender + ", " + values.HighestEducation + ", " + values.Religion + ", " + values.Height + ", " + values.Ethnicity + ", " + values.State + ", " + values.City + ", " + values.Age + ", " + values.Disability + ", " + values.Ethnicity + ", " + values.Gender + ", " + values.Religion;
+            console.log(record)
+            //Append headers with the x-chain-id and authorization
+            var myHeaders = new Headers();
+            myHeaders.append("x-chain-id", "1001");
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("Authorization", "Basic S0FTS0M2SUFSRUxWTFZDVEROVFpNNFUxOk1Gbm9JLWtENmVTd2JublZVWUN0ZHJPa0lkcTJFYllHMmNndWpYbEU=");
+
+            //Create raw to store the sender key, gas limit, etc
+            var raw = JSON.stringify({
+              "from": record.SenderKey,
+              "value": record.Amount,
+              "to": record.ReceiversKey,
+              "memo": record.memo,
+              "nonce": 0,
+              "gasLimit": record.Gas,
+              "Age":record.Age,
+              "Disability": record.Disability,
+              "Ethnicity": record.Ethnicity,
+              //"SexualOrientation": record.SexualOrientation,
+              "Gender": record.Gender,
+              "Religion":record.Religion,
+              "Address": record.Address,
+              "submit": true
+            });
+
+            //Create requestOptions
+            var requestOptions = {
+              method: 'POST',
+              headers: myHeaders,
+              body: raw,
+              redirect: 'follow'
+            };
+            //Append headers with the x-chain-id and authorization
+            fetch("https://wallet-api.klaytnapi.com/v2/tx/value", requestOptions)
+              .then(response => response.text())
+              .then(data => {
+                alert(data);
+                document.getElementById("myText").innerHTML = "";
+                document.getElementById("myText").innerHTML += "Your Fund Transfer Details:" + "\n";
+                // alert(JSON.stringify(data));
+                data = JSON.parse(data);
+                //Parse the data by looping through the list of values
+                for (var key in data) {
+               // console.log(key)
+                  //if (data.hasOwnProperty(key)) {
+                  debugger
+                  if (typeof (data[key]) == "object") {
+                    document.getElementById("myText").innerHTML += "\n";
+                    document.getElementById("myText").innerHTML += "Make Payment " + key.toUpperCase() + " Details:" + "\n";
+                    for (var key1 in data[key]) {
+                      if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                        document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                      }
+                    }
+                    document.getElementById("myText").innerHTML += "\n";
+                  }
+                  else if (data[key] != "" && data[key] != null) {
+                    document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+                  }
+                  // console.log(key + " : " + data.account_data[key]);
+
+
+                  // document.getElementById("myText").innerHTML += JSON.stringify(data) + "\n";
+                  //}
+          }
+                $('#myText').show();
+                
+              })
+              .catch(error => console.log('error', error));
+            // let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(paramsObj);
+            // fetch(url)
+            // .then(response=>response.text())
+            // .then(data=>{
+            //   alert(data);
+            //   var fetchObj = {};
+            //   fetchObj.type = "MongodbData";
+            //   fetchObj.database = "Industry";
+            //   fetchObj.collection = "Suppliers";
+            //   fetchObj.queryType = "read";
+            //   fetchObj.record = {};
+            //   let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(fetchObj);
+            //   fetch(url)
+            //   .then(response=>response.json())
+            //   .then(data=>{
+            //     grid.dataSource = data;
+            //     sendPaymentBtn();
+            //   })
+            // })
+          }
+        }
+      });
+
+    }
+    const uischema = 
+        {
+          type: 'HorizontalLayout',
+          elements: [
+            {
+              type: 'Control',
+              scope: '#/Age',
+            }
+          ]
+        };
+
+    //create handleUpdateFeedback function 
+    handleUpdateFeedback = () => {
+      let updateFormEle = document.querySelector("#updateForm");
+      updateFormEle.style.display = updateFormEle.style.display == "none" ? "" : "none";
+    }
+
+    // scanQRBtn = () => {
+    //   var paramsObj = {};
+    //   paramsObj.type = "Ripple";
+    //   paramsObj.queryType = "qrcode";
+
+    //   //alert(paramsObj)
+
+    //   let url = "https://chart-api-6httuqd2wq-uc.a.run.app?dbParams=" + JSON.stringify(paramsObj);
+    //   fetch(url)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //       window.open(data, "_blank");
+    //     })
+    // }
+
+    //create accountDetails function 
+    accountDetailsBtn = () => {
+      //Append headers with the x-chain-id and authorization
+      var myHeaders = new Headers();
+      myHeaders.append("x-chain-id", "1001");
+      myHeaders.append("Authorization", "Basic S0FTS0M2SUFSRUxWTFZDVEROVFpNNFUxOk1Gbm9JLWtENmVTd2JublZVWUN0ZHJPa0lkcTJFYllHMmNndWpYbEU=");
+
+      //Create requestOptions
+      var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+      };
+ 
+      //Append headers with the x-chain-id and authorization
+      fetch("https://wallet-api.klaytnapi.com/v2/account?&size=100&cursor=&from-timestamp=1592360291&to-timestamp=15991809920", requestOptions)
+        .then(response => response.text())
+        .then(data => {
+                alert(data);
+                document.getElementById("myText").innerHTML = "";
+                // alert(JSON.stringify(data));
+                data = JSON.parse(data);
+                data = data["items"];
+                //Parse the data by looping through the list of values
+                for (var key in data) {
+                //if (data.hasOwnProperty(key)) {
+                debugger
+                if (typeof (data[key]) == "object") {
+                  document.getElementById("myText").innerHTML += "\n";
+                  document.getElementById("myText").innerHTML += key.toUpperCase() + "\n";
+                  for (var key1 in data[key]) {
+                    if (data[key][key1] != "" && data[key][key1] != null && typeof (data[key][key1]) != "object") {
+                      document.getElementById("myText").innerHTML += "    " + key1.toUpperCase() + " : " + data[key][key1] + "\n";
+                    }
+                  }
+                  document.getElementById("myText").innerHTML += "\n";
+                }
+                else if (data[key] != "" && data[key] != null) {
+                  document.getElementById("myText").innerHTML += key.toUpperCase() + " : " + data[key] + "\n";
+                }
+                $('#myText').show();
+              }
+            })
+        .catch(error => console.log('error', error));
+
+    }
+  </script>
+</body>
+
+</html>
